@@ -7,6 +7,7 @@ página web para realizar operaciones CRUD sobre los datos básicos de la indust
 De momento, Este proyecto consiste en desarrollar una aplicación que resuelva el siguiente problema de negocio: 
 > [Operaciones sobre los datos básicos de tallas,Operaciones sobre los datos básicos de colores,Sistema de autenticación de usuarios, etc.] 
 
+
 # Informacion del proyecto
 
 ## Arquitectura del Proyecto
@@ -29,8 +30,10 @@ Este proyecto está compuesto por: **cliente**, **servidor web**, **servidor de 
 
 ![Arquitectura del Proyecto](/docs/imgs/estructura-proyecto.png)
 
+
 ## Proveedor de la nube
 Actualmente aún no se ha determinado un proveedor de servicios en la nube; se decidirá según el avance del proyecto.
+
 
 ## Herramientas del Proyecto
 
@@ -55,21 +58,27 @@ Actualmente aún no se ha determinado un proveedor de servicios en la nube; se d
 - Facilita la prueba y depuración de APIs.  
 - Interfaz intuitiva y fácil de usar.
 
+
+
 # Informacion del repositorio
 Este repositorio contiene el código fuente, documentación por hitos y archivos de configuración.
 
+
 ## Documentación por hitos
-La documentación del proyecto se encuentra en la carpeta [docs](docs/).
-A medida que avance cada clase de práctica, se irán agregando nuevos archivos markdown de hito y otros archivos complementarios a esta carpeta.
+- La documentación del proyecto se encuentra en la carpeta [docs](docs/).
+- A medida que avance cada clase de práctica, se irán agregando nuevos archivos markdown de hito y otros archivos complementarios a esta carpeta.
+
 
 ## Código fuente de la aplicación.
-El código fuente de la aplicación se encuentra en la carpeta [src](src/).
-La estructura específica del proyecto se añadirá a este archivo después de que el proyecto sea generado.
+- El código fuente de la aplicación se encuentra en la carpeta [src](src/).
+- La estructura específica del proyecto se añadirá a este archivo después de que el proyecto sea generado.
+
 
 ## Licencia
 - MIT License [MIT](LICENSE).
-Teniendo en cuenta que se trata de un proyecto con fines de aprendizaje y que no implica mucho contenido comercial, 
+- Teniendo en cuenta que se trata de un proyecto con fines de aprendizaje y que no implica mucho contenido comercial, 
 se ha elegido la licencia MIT, que además es la más utilizada.
+
 
 ## .gitignore
 - segun se conviene del proyecto concreto de Laravel [.gitignore](.gitignore).
