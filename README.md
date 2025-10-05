@@ -53,13 +53,13 @@ se decidirá según el avance del proyecto.
 ## Herramientas del Proyecto
 
 ### Lenguaje
-**PHP**  un lenguaje de scripting del lado del servidor de código abierto, ampliamente utilizado para desarrollar páginas web dinámicas y aplicaciones web.
+**PHP 8.x**  un lenguaje de scripting del lado del servidor de código abierto, ampliamente utilizado para desarrollar páginas web dinámicas y aplicaciones web.
 
 - Amplia comunidad y soporte.  
 - Fácil integración con servidores web.  
 
 ### Framework
-**Laravel** es un popular framework de PHP que utiliza la arquitectura MVC y está diseñado para simplificar el desarrollo de aplicaciones web. Ofrece funciones completas como enrutamiento, motor de plantillas, ORM, autenticación y seguridad, haciendo que el desarrollo sea más eficiente y estructurado.
+**Laravel 12.x** es un popular framework de PHP que utiliza la arquitectura MVC y está diseñado para simplificar el desarrollo de aplicaciones web. Ofrece funciones completas como enrutamiento, motor de plantillas, ORM, autenticación y seguridad, haciendo que el desarrollo sea más eficiente y estructurado.
 
 - Estructura MVC que facilita la organización del código.  
 - Sistema de migraciones y ORM potente (Eloquent).  
@@ -77,6 +77,8 @@ se decidirá según el avance del proyecto.
 - Facilita la prueba y depuración de APIs.  
 - Interfaz intuitiva y fácil de usar.
 
+### Contenedor
+**Docker** es una plataforma de contenedores de código abierto utilizada para desarrollar, desplegar y ejecutar aplicaciones.
 
 
 # Informacion del repositorio
