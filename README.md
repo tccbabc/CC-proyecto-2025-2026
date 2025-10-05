@@ -60,12 +60,16 @@ Este repositorio contiene el código fuente, documentación por hitos y archivos
 
 ## Documentación por hitos
 La documentación del proyecto se encuentra en la carpeta [docs](docs/).
+A medida que avance cada clase de práctica, se irán agregando nuevos archivos markdown de hito y otros archivos complementarios a esta carpeta.
 
 ## Código fuente de la aplicación.
 El código fuente de la aplicación se encuentra en la carpeta [src](src/).
+La estructura específica del proyecto se añadirá a este archivo después de que el proyecto sea generado.
 
 ## Licencia
 - MIT License [MIT](LICENSE).
+Teniendo en cuenta que se trata de un proyecto con fines de aprendizaje y que no implica mucho contenido comercial, 
+se ha elegido la licencia MIT, que además es la más utilizada.
 
 ## .gitignore
 - segun se conviene del proyecto concreto de Laravel [.gitignore](.gitignore).
