@@ -7,9 +7,9 @@ página web para realizar operaciones CRUD sobre los datos básicos de la indust
 El trasfondo de este proyecto es establecer una base de datos básica que permita, cuando los diseñadores necesiten crear prendas de vestir, comparar la información de esta base de datos con la base de datos de los proveedores, con el fin de determinar posteriormente la compra de ciertos materiales y otras tareas relacionadas.
 Por lo tanto, este proyecto es principalmente un servicio del lado del servidor orientado al negocio (business-oriented). En este curso, el contenido que se desea implementar actualmente es el siguiente:
 
-> Muestra y operaciones sobre los datos básicos de tallas en una pagina web
-> Muestra y operaciones sobre los datos básicos de colores en una pagina web
-> Sistema de autenticación de usuarios, etc.
+- Muestra y operaciones sobre los datos básicos de tallas en una pagina web
+- Muestra y operaciones sobre los datos básicos de colores en una pagina web
+- Sistema de autenticación de usuarios, etc.
 
 
 # Informacion del proyecto
@@ -53,23 +53,27 @@ se decidirá según el avance del proyecto.
 ## Herramientas del Proyecto
 
 ### Lenguaje
-**PHP**  
+**PHP**  un lenguaje de scripting del lado del servidor de código abierto, ampliamente utilizado para desarrollar páginas web dinámicas y aplicaciones web.
+
 - Amplia comunidad y soporte.  
 - Fácil integración con servidores web.  
 
 ### Framework
-**Laravel**  
+**Laravel** es un popular framework de PHP que utiliza la arquitectura MVC y está diseñado para simplificar el desarrollo de aplicaciones web. Ofrece funciones completas como enrutamiento, motor de plantillas, ORM, autenticación y seguridad, haciendo que el desarrollo sea más eficiente y estructurado.
+
 - Estructura MVC que facilita la organización del código.  
 - Sistema de migraciones y ORM potente (Eloquent).  
 - Seguridad y autenticación integradas.
 
 ### Base de Datos
-**MySQL**  
+**MySQL** es un sistema de gestión de bases de datos relacional (RDBMS) de código abierto, conocido por su alto rendimiento, fiabilidad y facilidad de uso.
+
 - Rendimiento estable y fiable.  
 - Buen manejo de datos relacionales.
 
 ### Herramienta de Pruebas
-**Postman**  
+**Postman** es una herramienta poderosa para probar y depurar APIs, que permite enviar diferentes tipos de solicitudes, ver los resultados de las respuestas, realizar pruebas automatizadas y generar documentación.
+
 - Facilita la prueba y depuración de APIs.  
 - Interfaz intuitiva y fácil de usar.
 
