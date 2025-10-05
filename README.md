@@ -3,26 +3,40 @@ Proyecto de despliegue de una pagina web en la nube, desarrollado a lo largo de 
 
 ## Descripción del Proyecto
 Este proyecto está dirigido principalmente al departamento de diseño de una empresa de moda, y tiene como objetivo crear una 
-página web para realizar operaciones CRUD sobre los datos básicos de la industria de la confección, como colores, tallas y unidades,etc.
-De momento, Este proyecto consiste en desarrollar una aplicación que resuelva el siguiente problema de negocio: 
-> [Operaciones sobre los datos básicos de tallas,Operaciones sobre los datos básicos de colores,Sistema de autenticación de usuarios, etc.] 
+página web para realizar operaciones CRUD sobre los datos básicos de la industria de la confección, como colores, tallas y unidades, etc.
+El trasfondo de este proyecto es establecer una base de datos básica que permita, cuando los diseñadores necesiten crear prendas de vestir, comparar la información de esta base de datos con la base de datos de los proveedores, con el fin de determinar posteriormente la compra de ciertos materiales y otras tareas relacionadas.
+Por lo tanto, este proyecto es principalmente un servicio del lado del servidor orientado al negocio (business-oriented). En este curso, el contenido que se desea implementar actualmente es el siguiente:
+
+> Muestra y operaciones sobre los datos básicos de tallas en una pagina web
+> Muestra y operaciones sobre los datos básicos de colores en una pagina web
+> Sistema de autenticación de usuarios, etc.
 
 
 # Informacion del proyecto
 
+
 ## Arquitectura del Proyecto
-Este proyecto está compuesto por: **cliente**, **servidor web**, **servidor de base de datos**, **proxy Nginx** y **Redis**.
+Este proyecto utiliza una arquitectura típica **MVC**, que representa respectivamente:  
+
+- **M (Modelo)**: Se encarga del acceso a los datos y la lógica de negocio.  
+- **V (Vista)**: Se encarga de la presentación de la interfaz y la interacción con el usuario.  
+- **C (Controlador)**: Se encarga de recibir las solicitudes del usuario y llamar al modelo y la vista para su procesamiento.
+
+En este caso, el **VC** se encapsula en un proyecto de Laravel, mientras el **M** es desplegado en un base de dato.
+
+Está compuesto por: **cliente**, **servidor web**, **servidor de base de datos**, **proxy Nginx** y **Redis**.
 
 ### Descripción de la Arquitectura
 
 1. **Cliente (PC)**  
-   - Envía solicitudes al **proxy Nginx**.
+   - Envía solicitudes al **proxy Nginx**, desempeñar el papel de cliente en este proyecto.
 
 2. **Proxy Nginx**  
    - Se encarga del **balanceo de carga** y **proxy inverso**, y reenvía las solicitudes al **servidor web**.
+   - Aunque en este proyecto no se utilice la función de balanceo de carga, se despliega de forma anticipada para futuras expansiones.
 
 3. **Servidor Web**  
-   - Procesa la **lógica de negocio**.  
+   - Procesa la **lógica de negocio**. Sus funcionalidades se implementan mediante un proyecto Laravel, que incluye todas las funciones completas del frontend y del backend. 
    - Consulta la **caché Redis**; si no encuentra los datos en la caché, accede al **servidor de base de datos**.
 
 4. **Servidor de Base de Datos**  
@@ -32,7 +46,8 @@ Este proyecto está compuesto por: **cliente**, **servidor web**, **servidor de 
 
 
 ## Proveedor de la nube
-Actualmente aún no se ha determinado un proveedor de servicios en la nube; se decidirá según el avance del proyecto.
+El servidor y la base de datos de este proyecto están configurados en la nube, Pero ctualmente aún no se ha determinado un proveedor de servicios en la nube; 
+se decidirá según el avance del proyecto.
 
 
 ## Herramientas del Proyecto
