@@ -80,6 +80,9 @@ se decidirá según el avance del proyecto.
 ### Contenedor
 **Docker** es una plataforma de contenedores de código abierto utilizada para desarrollar, desplegar y ejecutar aplicaciones.
 
+- WSL2:una capa de compatibilidad que permite ejecutar un kernel completo de Linux en Windows
+- Docker Desktop: una aplicación que facilita crear, gestionar y ejecutar contenedores Docker en tu máquina.
+
 
 # Informacion del repositorio
 Este repositorio contiene el código fuente, documentación por hitos y archivos de configuración.
