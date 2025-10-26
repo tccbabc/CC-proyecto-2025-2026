@@ -1,4 +1,4 @@
-### Hito2
+## Hito2
 
 ## Configuración del entorno del proyecto **CC-proyecto-2025-2026**
 Este proyecto está compuesto por varios servicios que interactúan entre sí a través de contenedores Docker. A continuación, se detalla la arquitectura y la función de cada componente:
@@ -28,10 +28,16 @@ Este proyecto está compuesto por varios servicios que interactúan entre sí a 
 - **Imagen:** `mysql:8.0`
   Base de datos principal del proyecto, donde se almacena toda la información persistente de la aplicación, incluyendo usuarios, datos de negocio y configuraciones.
 
+
+
 ![Entorno](/docs/imgs/entorno_docker.PNG)
+
+
 
 ### 6. Entorno de Desarrollo Local (PHPStorm)
 El proyecto se desarrolla utilizando **PHPStorm** como IDE principal. PHPStorm se ejecuta en la máquina local del desarrollador y, tras la configuración inicial, ya es posible acceder a la aplicación web a través del navegador. 
+
+
 
 ![Pagina Laravel](/docs/imgs/laravel.png)
 
@@ -43,11 +49,12 @@ El proyecto se desarrolla utilizando **PHPStorm** como IDE principal. PHPStorm s
 1. **Elección y configuración del gestor de tareas.**
 
   - **make + Makefile + Laravel Artisan**
-  Artisan es un comando o instrucción que viene incluido con Laravel. Permite ejecutar tareas comunes de desarrollo de manera rápida y automatizada, como migraciones de base de datos, generación de controladores o pruebas. Desde un punto de vista básico, solo necesitamos ejecutar los comandos de Artisan. Por ejemplo, esto es suficiente durante el desarrollo local o para pruebas propias.
+      Artisan es un comando o instrucción que viene incluido con Laravel. Permite ejecutar tareas comunes de desarrollo de manera rápida y automatizada, como migraciones de base de datos, generación de controladores o pruebas. Desde un punto de vista básico, solo necesitamos ejecutar los comandos de Artisan. Por ejemplo, esto es suficiente durante el desarrollo local o para pruebas propias.
 
-  Sin embargo, una situación muy común es que algunas tareas de prueba son altamente repetitivas. En estos casos, repetir la misma prueba manualmente puede ser muy tedioso. Por otro lado, si escribimos scripts manualmente para las pruebas, surge un problema de uniformidad, ya que diferentes personas podrían escribir scripts distintos.
+      Sin embargo, una situación muy común es que algunas tareas de prueba son altamente repetitivas. En estos casos, repetir la misma prueba manualmente puede ser muy   tedioso. Por otro lado, si escribimos scripts manualmente para las pruebas, surge un problema de uniformidad, ya que diferentes personas podrían escribir scripts distintos.
 
-  Por eso se utiliza Makefile. Desde mi perspectiva, esencialmente sirve para asignar un nombre breve a un comando de prueba y luego organizar estos nombres de manera estructurada. De este modo, todos pueden simplemente usar los nombres de los comandos. Además, su entorno de lenguaje está más orientado al backend y, combinado con su legibilidad y simplicidad, lo hace muy adecuado para la integración continua (CI). 
+      Por eso se utiliza Makefile. Desde mi perspectiva, esencialmente sirve para asignar un nombre breve a un comando de prueba y luego organizar estos nombres de manera estructurada. De este modo, todos pueden simplemente usar los nombres de los comandos. Además, su entorno de lenguaje está más orientado al backend y, combinado con su legibilidad y simplicidad, lo hace muy adecuado para la integración continua (CI). 
+
 
   ![Gestor de tareas](/docs/imgs/makeFile.PNG)
 
@@ -56,6 +63,8 @@ El proyecto se desarrolla utilizando **PHPStorm** como IDE principal. PHPStorm s
 
   - **biblioteca de aserciones PHP**
   Dado que este proyecto se desarrolla bajo el framework Laravel, se utiliza la biblioteca de assertions que viene incluida con PHP. Primero, ya está integrada en el framework Laravel, por lo que es muy conveniente y no es necesario incorporar otra biblioteca de assertions adicional. Además, su funcionalidad es bastante potente; considerando que este proyecto se centra principalmente en operaciones CRUD, la biblioteca de assertions de PHP es suficiente.
+
+
 
 ![Biblioteca de aserciones](/docs/imgs/PHP-assertacion.PNG)
 
@@ -72,6 +81,7 @@ El proyecto se desarrolla utilizando **PHPStorm** como IDE principal. PHPStorm s
      - **Configuración flexible:** Archivo `phpunit.xml` permite definir directorios, filtros y formatos de log. 
 
      - **Reportes:** Consola, XML o HTML, útil para CI/CD.
+
 
 
 ![PHPUnit](/docs/imgs/PHPUnit.PNG)
