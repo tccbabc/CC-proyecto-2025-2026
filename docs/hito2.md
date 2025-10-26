@@ -49,7 +49,7 @@ El proyecto se desarrolla utilizando **PHPStorm** como IDE principal. PHPStorm s
 
   Por eso se utiliza Makefile. Desde mi perspectiva, esencialmente sirve para asignar un nombre breve a un comando de prueba y luego organizar estos nombres de manera estructurada. De este modo, todos pueden simplemente usar los nombres de los comandos. Además, su entorno de lenguaje está más orientado al backend y, combinado con su legibilidad y simplicidad, lo hace muy adecuado para la integración continua (CI). 
 
-  ![Gestor de tareas](/docs/imgs/laravel.png)
+  ![Gestor de tareas](/docs/imgs/makeFile.PNG)
 
 
 2. **Elección y uso de la biblioteca de aserciones.**
@@ -57,7 +57,7 @@ El proyecto se desarrolla utilizando **PHPStorm** como IDE principal. PHPStorm s
   - **biblioteca de aserciones PHP**
   Dado que este proyecto se desarrolla bajo el framework Laravel, se utiliza la biblioteca de assertions que viene incluida con PHP. Primero, ya está integrada en el framework Laravel, por lo que es muy conveniente y no es necesario incorporar otra biblioteca de assertions adicional. Además, su funcionalidad es bastante potente; considerando que este proyecto se centra principalmente en operaciones CRUD, la biblioteca de assertions de PHP es suficiente.
 
-![Biblioteca de aserciones](/docs/imgs/ssh-keys.PNG)
+![Biblioteca de aserciones](/docs/imgs/PHP-assertacion.PNG)
 
 
 3. **Elección y uso del marco de pruebas.**
@@ -74,7 +74,7 @@ El proyecto se desarrolla utilizando **PHPStorm** como IDE principal. PHPStorm s
      - **Reportes:** Consola, XML o HTML, útil para CI/CD.
 
 
-![PHPUnit](/docs/imgs/ssh-keys.PNG)
+![PHPUnit](/docs/imgs/PHPUnit.PNG)
 
 
 4. **Integración continua funcionando y correcta justificación del sistema elegido.**
