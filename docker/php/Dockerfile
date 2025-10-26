@@ -21,3 +21,6 @@ RUN pecl install xdebug && docker-php-ext-enable xdebug
 WORKDIR /var/www
 RUN usermod -u 1000 www-data || true
 EXPOSE 9000
+
+RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache \
+    && chmod -R 775 /var/www/storage /var/www/bootstrap/cache
