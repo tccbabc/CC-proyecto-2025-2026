@@ -56,7 +56,7 @@ El proyecto se desarrolla utilizando **PHPStorm** como IDE principal. PHPStorm s
       Por eso se utiliza Makefile. Desde mi perspectiva, esencialmente sirve para asignar un nombre breve a un comando de prueba y luego organizar estos nombres de manera estructurada. De este modo, todos pueden simplemente usar los nombres de los comandos. Además, su entorno de lenguaje está más orientado al backend y, combinado con su legibilidad y simplicidad, lo hace muy adecuado para la integración continua (CI). 
 
 
-  ![Gestor de tareas](/docs/imgs/makeFile.PNG)
+      ![Gestor de tareas](/docs/imgs/makeFile.PNG)
 
 
 2. **Elección y uso de la biblioteca de aserciones.**
@@ -66,7 +66,7 @@ El proyecto se desarrolla utilizando **PHPStorm** como IDE principal. PHPStorm s
 
 
 
-![Biblioteca de aserciones](/docs/imgs/PHP-assertacion.PNG)
+  ![Biblioteca de aserciones](/docs/imgs/PHP-assertacion.PNG)
 
 
 3. **Elección y uso del marco de pruebas.**
@@ -84,7 +84,7 @@ El proyecto se desarrolla utilizando **PHPStorm** como IDE principal. PHPStorm s
 
 
 
-![PHPUnit](/docs/imgs/PHPUnit.PNG)
+   ![PHPUnit](/docs/imgs/PHPUnit.PNG)
 
 
 4. **Integración continua funcionando y correcta justificación del sistema elegido.**
@@ -94,24 +94,53 @@ El proyecto se desarrolla utilizando **PHPStorm** como IDE principal. PHPStorm s
   En este proyecto, para CI utiliza GitHub Actions, que es la herramienta de CI/CD integrada que ofrece GitHub. Permite definir flujos de trabajo automatizados directamente dentro del repositorio. Su mayor ventaja es la estrecha integración con GitHub: puede escuchar eventos como push y pull request. Además, es fácil de configurar: se define mediante archivos YAML en la carpeta .github/workflows/. También es gratuito. Como se muestra en la imagen, se creó y configuró el archivo de GitHub Actions en la ruta .github/workflows/ci.yml.
 
 
-![GitAction](/docs/imgs/action_git.png)
+   ![GitAction](/docs/imgs/action_git.png)
 
 
   Después de realizar el primer git push, se produjo un error durante el proceso de integración. A partir del informe mostrado en la página de Actions, se pudo ver que GitHub Actions no encontraba el archivo composer.json. La causa era que el proyecto estaba ubicado dentro de la carpeta src en lugar del directorio raíz, por lo que la ruta era incorrecta.
 
 
-![GitAction](/docs/imgs/action_error.png)
+  ![GitAction](/docs/imgs/action_error.png)
 
   
   Luego se modificó el archivo de configuración de GitHub Actions y se realizó otro push. Esta vez, el proceso se ejecutó correctamente.
 
 
-![GitAction](/docs/imgs/action_succse.png) 
+  ![GitAction](/docs/imgs/action_succse.png) 
 
 
 5. **Correcta implementación y ejecución de los tests.**
 
-![2FA](/docs/imgs/second-authentication.PNG)
+   - **gestion de Size**
+   En esta parte se ha creado un ejemplo relacionado con la gestión de tallas (solo para verificar las funciones de prueba, muchos detalles aún no están completamente desarrollados). A través de las operaciones CRUD sobre los datos de la tabla de tallas, se establecen pruebas relacionadas con dichas funciones para verificar la funcionalidad de validación en CI.
+
+      - **Table Name**:sizes
+
+      | Column Name | Data Type   | Description                   | Constraints / Default |
+      | ----------- | ----------- | ----------------------------- | --------------------- |
+      | id          | big integer | Primary key                   | Auto-increment        |
+      | sizeCode    | string      | Size code (unique identifier) | **Unique**            |
+      | sizeName    | string      | Size name                     | —                     |
+      | sizeGroup   | string      | Size group (e.g., Men/Women)  | —                     |
+      | sizeStatus  | boolean     | Status (enabled or disabled)  | Default: **true**     |
+      | created_at  | timestamp   | Record creation time          | Auto-managed          |
+      | updated_at  | timestamp   | Record update time            | Auto-managed          |
+
+
+     - **operacion sobre dato**: addSize(array $data), editSize(array $data), delSize(), setStatus(bool $status)
+
+
+
+   ![size test](/docs/imgs/test_ejemplo.png) 
+
+
+
+
+   Y luego otra vez push las nuevas moficicaciones al github.
+
+
+   ![CI test](/docs/imgs/CI_ejemplo.png) 
+
 
 
 
