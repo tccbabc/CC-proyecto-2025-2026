@@ -89,7 +89,24 @@ El proyecto se desarrolla utilizando **PHPStorm** como IDE principal. PHPStorm s
 
 4. **Integración continua funcionando y correcta justificación del sistema elegido.**
 
-![Perfil](/docs/imgs/profile.PNG)
+  - **GitHub Actions**
+  
+  En este proyecto, para CI utiliza GitHub Actions, que es la herramienta de CI/CD integrada que ofrece GitHub. Permite definir flujos de trabajo automatizados directamente dentro del repositorio. Su mayor ventaja es la estrecha integración con GitHub: puede escuchar eventos como push y pull request. Además, es fácil de configurar: se define mediante archivos YAML en la carpeta .github/workflows/. También es gratuito. Como se muestra en la imagen, se creó y configuró el archivo de GitHub Actions en la ruta .github/workflows/ci.yml.
+
+
+![GitAction](/docs/imgs/action_git.png)
+
+
+  Después de realizar el primer git push, se produjo un error durante el proceso de integración. A partir del informe mostrado en la página de Actions, se pudo ver que GitHub Actions no encontraba el archivo composer.json. La causa era que el proyecto estaba ubicado dentro de la carpeta src en lugar del directorio raíz, por lo que la ruta era incorrecta.
+
+
+![GitAction](/docs/imgs/action_error.png)
+
+  
+  Luego se modificó el archivo de configuración de GitHub Actions y se realizó otro push. Esta vez, el proceso se ejecutó correctamente.
+
+
+![GitAction](/docs/imgs/action_succse.png) 
 
 
 5. **Correcta implementación y ejecución de los tests.**
