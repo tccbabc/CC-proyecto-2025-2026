@@ -7,3 +7,9 @@ Example (Tests\Unit\Example)
 Homepage (Tests\Feature\Homepage)
  [x] Homepage returns 200
 
+Size (Tests\Unit\Size)
+ [x] It can add a size
+ [x] It can edit a size
+ [x] It can delete a size
+ [x] It can set status
+

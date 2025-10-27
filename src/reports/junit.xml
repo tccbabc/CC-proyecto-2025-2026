@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="/var/www/phpunit.xml" tests="3" assertions="3" errors="0" failures="0" skipped="0" time="3.261179">
-    <testsuite name="Unit" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.098598">
-      <testsuite name="Tests\Unit\ExampleTest" file="/var/www/tests/Unit/ExampleTest.php" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.098598">
-        <testcase name="test_that_true_is_true" file="/var/www/tests/Unit/ExampleTest.php" line="12" class="Tests\Unit\ExampleTest" classname="Tests.Unit.ExampleTest" assertions="1" time="0.098598"/>
+  <testsuite name="/var/www/phpunit.xml" tests="7" assertions="7" errors="0" failures="0" skipped="0" time="5.797383">
+    <testsuite name="Unit" tests="5" assertions="5" errors="0" failures="0" skipped="0" time="4.869493">
+      <testsuite name="Tests\Unit\ExampleTest" file="/var/www/tests/Unit/ExampleTest.php" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.084566">
+        <testcase name="test_that_true_is_true" file="/var/www/tests/Unit/ExampleTest.php" line="12" class="Tests\Unit\ExampleTest" classname="Tests.Unit.ExampleTest" assertions="1" time="0.084566"/>
+      </testsuite>
+      <testsuite name="Tests\Unit\SizeTest" file="/var/www/tests/Unit/SizeTest.php" tests="4" assertions="4" errors="0" failures="0" skipped="0" time="4.784927">
+        <testcase name="it_can_add_a_size" file="/var/www/tests/Unit/SizeTest.php" line="14" class="Tests\Unit\SizeTest" classname="Tests.Unit.SizeTest" assertions="1" time="4.163520"/>
+        <testcase name="it_can_edit_a_size" file="/var/www/tests/Unit/SizeTest.php" line="30" class="Tests\Unit\SizeTest" classname="Tests.Unit.SizeTest" assertions="1" time="0.384959"/>
+        <testcase name="it_can_delete_a_size" file="/var/www/tests/Unit/SizeTest.php" line="45" class="Tests\Unit\SizeTest" classname="Tests.Unit.SizeTest" assertions="1" time="0.125957"/>
+        <testcase name="it_can_set_status" file="/var/www/tests/Unit/SizeTest.php" line="54" class="Tests\Unit\SizeTest" classname="Tests.Unit.SizeTest" assertions="1" time="0.110491"/>
       </testsuite>
     </testsuite>
-    <testsuite name="Feature" tests="2" assertions="2" errors="0" failures="0" skipped="0" time="3.162582">
-      <testsuite name="Tests\Feature\ExampleTest" file="/var/www/tests/Feature/ExampleTest.php" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="3.057201">
-        <testcase name="test_the_application_returns_a_successful_response" file="/var/www/tests/Feature/ExampleTest.php" line="13" class="Tests\Feature\ExampleTest" classname="Tests.Feature.ExampleTest" assertions="1" time="3.057201"/>
+    <testsuite name="Feature" tests="2" assertions="2" errors="0" failures="0" skipped="0" time="0.927889">
+      <testsuite name="Tests\Feature\ExampleTest" file="/var/www/tests/Feature/ExampleTest.php" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.815879">
+        <testcase name="test_the_application_returns_a_successful_response" file="/var/www/tests/Feature/ExampleTest.php" line="13" class="Tests\Feature\ExampleTest" classname="Tests.Feature.ExampleTest" assertions="1" time="0.815879"/>
       </testsuite>
-      <testsuite name="Tests\Feature\HomepageTest" file="/var/www/tests/Feature/HomepageTest.php" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.105381">
-        <testcase name="test_homepage_returns_200" file="/var/www/tests/Feature/HomepageTest.php" line="9" class="Tests\Feature\HomepageTest" classname="Tests.Feature.HomepageTest" assertions="1" time="0.105381"/>
+      <testsuite name="Tests\Feature\HomepageTest" file="/var/www/tests/Feature/HomepageTest.php" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.112010">
+        <testcase name="test_homepage_returns_200" file="/var/www/tests/Feature/HomepageTest.php" line="9" class="Tests\Feature\HomepageTest" classname="Tests.Feature.HomepageTest" assertions="1" time="0.112010"/>
       </testsuite>
     </testsuite>
   </testsuite>
