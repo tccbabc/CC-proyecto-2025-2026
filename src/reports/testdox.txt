@@ -1,0 +1,9 @@
+Example (Tests\Feature\Example)
+ [x] The application returns a successful response
+
+Example (Tests\Unit\Example)
+ [x] That true is true
+
+Homepage (Tests\Feature\Homepage)
+ [x] Homepage returns 200
+

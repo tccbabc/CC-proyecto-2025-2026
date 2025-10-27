@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/var/www/phpunit.xml" tests="3" assertions="3" errors="0" failures="0" skipped="0" time="3.261179">
+    <testsuite name="Unit" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.098598">
+      <testsuite name="Tests\Unit\ExampleTest" file="/var/www/tests/Unit/ExampleTest.php" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.098598">
+        <testcase name="test_that_true_is_true" file="/var/www/tests/Unit/ExampleTest.php" line="12" class="Tests\Unit\ExampleTest" classname="Tests.Unit.ExampleTest" assertions="1" time="0.098598"/>
+      </testsuite>
+    </testsuite>
+    <testsuite name="Feature" tests="2" assertions="2" errors="0" failures="0" skipped="0" time="3.162582">
+      <testsuite name="Tests\Feature\ExampleTest" file="/var/www/tests/Feature/ExampleTest.php" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="3.057201">
+        <testcase name="test_the_application_returns_a_successful_response" file="/var/www/tests/Feature/ExampleTest.php" line="13" class="Tests\Feature\ExampleTest" classname="Tests.Feature.ExampleTest" assertions="1" time="3.057201"/>
+      </testsuite>
+      <testsuite name="Tests\Feature\HomepageTest" file="/var/www/tests/Feature/HomepageTest.php" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.105381">
+        <testcase name="test_homepage_returns_200" file="/var/www/tests/Feature/HomepageTest.php" line="9" class="Tests\Feature\HomepageTest" classname="Tests.Feature.HomepageTest" assertions="1" time="0.105381"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>
