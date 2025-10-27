@@ -62,51 +62,51 @@ El proyecto se desarrolla utilizando **PHPStorm** como IDE principal. PHPStorm s
 2. **Elección y uso de la biblioteca de aserciones.**
 
   - **biblioteca de aserciones PHP**
-  Dado que este proyecto se desarrolla bajo el framework Laravel, se utiliza la biblioteca de assertions que viene incluida con PHP. Primero, ya está integrada en el framework Laravel, por lo que es muy conveniente y no es necesario incorporar otra biblioteca de assertions adicional. Además, su funcionalidad es bastante potente; considerando que este proyecto se centra principalmente en operaciones CRUD, la biblioteca de assertions de PHP es suficiente.
+      Dado que este proyecto se desarrolla bajo el framework Laravel, se utiliza la biblioteca de assertions que viene incluida con PHP. Primero, ya está integrada en el framework Laravel, por lo que es muy conveniente y no es necesario incorporar otra biblioteca de assertions adicional. Además, su funcionalidad es bastante potente; considerando que este proyecto se centra principalmente en operaciones CRUD, la biblioteca de assertions de PHP es suficiente.
 
 
 
-  ![Biblioteca de aserciones](/docs/imgs/PHP-assertacion.PNG)
+      ![Biblioteca de aserciones](/docs/imgs/PHP-assertacion.PNG)
 
 
 3. **Elección y uso del marco de pruebas.**
 
   - **PHPUnit**
-  Igual como en el ejemplo d biblioteca de asercionse, en PHP, el framework de pruebas más utilizado es PHPUnit, que prácticamente se considera el estándar para pruebas unitarias en proyectos PHP. Por ejemplo:
+      Igual como en el ejemplo d biblioteca de asercionse, en PHP, el framework de pruebas más utilizado es PHPUnit, que prácticamente se considera el estándar para pruebas unitarias en proyectos PHP. Por ejemplo:
   
-     - **Organización de pruebas:** Para cada escenario de prueba, se puede crear diferentes clase y metodos.
+       - **Organización de pruebas:** Para cada escenario de prueba, se puede crear diferentes clase y metodos.
 
-     - **Assertions:** En su caso, usa la biblioteca de aserciones de PHP, que ya esta integrado en el marco.
+       - **Assertions:** En su caso, usa la biblioteca de aserciones de PHP, que ya esta integrado en el marco.
 
-     - **Configuración flexible:** Archivo `phpunit.xml` permite definir directorios, filtros y formatos de log. 
+       - **Configuración flexible:** Archivo `phpunit.xml` permite definir directorios, filtros y formatos de log. 
 
-     - **Reportes:** Consola, XML o HTML, útil para CI/CD.
+       - **Reportes:** Consola, XML o HTML, útil para CI/CD.
 
 
 
-   ![PHPUnit](/docs/imgs/PHPUnit.PNG)
+      ![PHPUnit](/docs/imgs/PHPUnit.PNG)
 
 
 4. **Integración continua funcionando y correcta justificación del sistema elegido.**
 
   - **GitHub Actions**
   
-  En este proyecto, para CI utiliza GitHub Actions, que es la herramienta de CI/CD integrada que ofrece GitHub. Permite definir flujos de trabajo automatizados directamente dentro del repositorio. Su mayor ventaja es la estrecha integración con GitHub: puede escuchar eventos como push y pull request. Además, es fácil de configurar: se define mediante archivos YAML en la carpeta .github/workflows/. También es gratuito. Como se muestra en la imagen, se creó y configuró el archivo de GitHub Actions en la ruta .github/workflows/ci.yml.
+      En este proyecto, para CI utiliza GitHub Actions, que es la herramienta de CI/CD integrada que ofrece GitHub. Permite definir flujos de trabajo automatizados directamente dentro del repositorio. Su mayor ventaja es la estrecha integración con GitHub: puede escuchar eventos como push y pull request. Además, es fácil de configurar: se define mediante archivos YAML en la carpeta .github/workflows/. También es gratuito. Como se muestra en la imagen, se creó y configuró el archivo de GitHub Actions en la ruta .github/workflows/ci.yml.
 
 
-   ![GitAction](/docs/imgs/action_git.png)
+      ![GitAction](/docs/imgs/action_git.png)
 
 
-  Después de realizar el primer git push, se produjo un error durante el proceso de integración. A partir del informe mostrado en la página de Actions, se pudo ver que GitHub Actions no encontraba el archivo composer.json. La causa era que el proyecto estaba ubicado dentro de la carpeta src en lugar del directorio raíz, por lo que la ruta era incorrecta.
+       Después de realizar el primer git push, se produjo un error durante el proceso de integración. A partir del informe mostrado en la página de Actions, se pudo ver que GitHub Actions no encontraba el archivo composer.json. La causa era que el proyecto estaba ubicado dentro de la carpeta src en lugar del directorio raíz, por lo que la ruta era incorrecta.
 
 
-  ![GitAction](/docs/imgs/action_error.png)
+       ![GitAction](/docs/imgs/action_error.png)
 
   
-  Luego se modificó el archivo de configuración de GitHub Actions y se realizó otro push. Esta vez, el proceso se ejecutó correctamente.
+       Luego se modificó el archivo de configuración de GitHub Actions y se realizó otro push. Esta vez, el proceso se ejecutó correctamente.
 
 
-  ![GitAction](/docs/imgs/action_succse.png) 
+       ![GitAction](/docs/imgs/action_succse.png) 
 
 
 5. **Correcta implementación y ejecución de los tests.**
@@ -114,7 +114,11 @@ El proyecto se desarrolla utilizando **PHPStorm** como IDE principal. PHPStorm s
    - **gestion de Size**
    En esta parte se ha creado un ejemplo relacionado con la gestión de tallas (solo para verificar las funciones de prueba, muchos detalles aún no están completamente desarrollados). A través de las operaciones CRUD sobre los datos de la tabla de tallas, se establecen pruebas relacionadas con dichas funciones para verificar la funcionalidad de validación en CI.
 
+
+
+
       - **Table Name**:sizes
+
 
       | Column Name | Data Type   | Description                   | Constraints / Default |
       | ----------- | ----------- | ----------------------------- | --------------------- |
@@ -127,11 +131,15 @@ El proyecto se desarrolla utilizando **PHPStorm** como IDE principal. PHPStorm s
       | updated_at  | timestamp   | Record update time            | Auto-managed          |
 
 
+
+
+
+
      - **operacion sobre dato**: addSize(array $data), editSize(array $data), delSize(), setStatus(bool $status)
 
 
 
-   ![size test](/docs/imgs/test_ejemplo.png) 
+       ![size test](/docs/imgs/test_ejemplo.png) 
 
 
 
@@ -139,7 +147,7 @@ El proyecto se desarrolla utilizando **PHPStorm** como IDE principal. PHPStorm s
    Y luego otra vez push las nuevas moficicaciones al github.
 
 
-   ![CI test](/docs/imgs/CI_ejemplo.png) 
+      ![CI test](/docs/imgs/CI_ejemplo.png) 
 
 
 
