@@ -320,10 +320,11 @@ En este caso, interviene unos conceptos muy fundamentales sobre el proyecto y el
 
 
      
+#### Otros microServicios
 
-   - **Gestion de dato de color** (a implementar).   
-   - **Gestion de dato de grupo de color** (a implementar).
-   - **Gestion de dato de compra de material** (a implementar).
+  - **Gestion de dato de color** (a implementar).   
+  - **Gestion de dato de grupo de color** (a implementar).
+  - **Gestion de dato de compra de material** (a implementar).
 
 
 
