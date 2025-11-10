@@ -100,10 +100,10 @@ En este caso, interviene unos conceptos muy fundamentales sobre el proyecto y el
 
    - **Gestion de dato de tamano**: 
 
-     #### 1. disenar tabla
+   #### 1. disenar tabla
 
 
-     CREATE TABLE `sizes` (
+    CREATE TABLE `sizes` (
 
       `sizeCode` VARCHAR(255) NOT NULL,
 
@@ -158,11 +158,11 @@ En este caso, interviene unos conceptos muy fundamentales sobre el proyecto y el
 
 
 
-     #### 2. definir estructura del microServicio
+    #### 2. definir estructura del microServicio
 
 
 
-     ![estructura](/docs/imgs/estructura.png)
+    ![estructura](/docs/imgs/estructura.png)
 
 
 
@@ -238,33 +238,33 @@ En este caso, interviene unos conceptos muy fundamentales sobre el proyecto y el
 
 
 
-   CREATE TABLE `size_relations` (
+    CREATE TABLE `size_relations` (
 
-   `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 
-   `sizeGroupCode` VARCHAR(255) NOT NULL,
+    `sizeGroupCode` VARCHAR(255) NOT NULL,
 
-   `sizeCode` VARCHAR(255) NOT NULL,
+    `sizeCode` VARCHAR(255) NOT NULL,
 
-   `created_at` TIMESTAMP NULL DEFAULT NULL,
+    `created_at` TIMESTAMP NULL DEFAULT NULL,
 
-   `updated_at` TIMESTAMP NULL DEFAULT NULL,
+    `updated_at` TIMESTAMP NULL DEFAULT NULL,
 
-   PRIMARY KEY (`id`),
+    PRIMARY KEY (`id`),
 
-   CONSTRAINT `size_relations_sizeGroupCode_foreign`
+    CONSTRAINT `size_relations_sizeGroupCode_foreign`
 
-   FOREIGN KEY (`sizeGroupCode`) REFERENCES `size_groups`(`sizeGroupCode`)
+    FOREIGN KEY (`sizeGroupCode`) REFERENCES `size_groups`(`sizeGroupCode`)
 
-   ON DELETE NO ACTION,
+    ON DELETE NO ACTION,
 
-   CONSTRAINT `size_relations_sizeCode_foreign`
+    CONSTRAINT `size_relations_sizeCode_foreign`
 
-   FOREIGN KEY (`sizeCode`) REFERENCES `sizes`(`sizeCode`)
+    FOREIGN KEY (`sizeCode`) REFERENCES `sizes`(`sizeCode`)
 
-   ON DELETE NO ACTION
+    ON DELETE NO ACTION
 
-  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
 
