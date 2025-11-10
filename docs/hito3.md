@@ -158,53 +158,53 @@ En este caso, interviene unos conceptos muy fundamentales sobre el proyecto y el
 
 
 
-    #### 2. definir estructura del microServicio
+   #### 2. definir estructura del microServicio
 
 
 
-    ![estructura](/docs/imgs/estructura.png)
+   ![estructura](/docs/imgs/estructura.png)
 
 
 
-     - **capa Router**: Un fichero **api.php** donde define las rutina de api de los servicios de tamano.
+   - **capa Router**: Un fichero **api.php** donde define las rutina de api de los servicios de tamano.
 
-     ![api](/docs/imgs/listRouter.png)
+   ![api](/docs/imgs/listRouter.png)
 
-     - **capa Controller**: Un fichero **SizeController.php** donde define la validacion de los parametros de api y llama el servicio. 
-     definido en capa de servicio.
+   - **capa Controller**: Un fichero **SizeController.php** donde define la validacion de los parametros de api y llama el servicio. 
+   definido en capa de servicio.
 
-     - **capa Service**: Un fichero **SizeService.php** donde realiza la logica de negicio concreto de los servicios.
-
-
-     #### 3. definir operacion
-
-     - **listSize**: Mostrar todos los tamanos guardados en la tabla **sizes**.
-
-     ![listSize](/docs/imgs/listSize.png)
-
-     - **addSize**: Anadir un tamano nuevo al tabla **sizes**, establecer una vinculacion entre el tamano y grupo de tamano en la talba **sizeRelation**.
-
-     ![addSize](/docs/imgs/addSize.png)
-
-     - **editSize**: Editar las informaciones de tamano en la tabla **sizes** y **sizeRelation**.
-
-     ![editSize](/docs/imgs/editSize.png)
-
-     - **delSize**: Eliminar el dato de un tamano en la tabla **sizes** y **sizeRelation**.
-
-     ![delSize](/docs/imgs/delSize.png)
+   - **capa Service**: Un fichero **SizeService.php** donde realiza la logica de negicio concreto de los servicios.
 
 
+   #### 3. definir operacion
 
-     #### 4. definir reglas que debe cumplir(Exception en caso no)
-     Como en este hito hacemos un servicio de producction, necesita definir unas reglas o restricciones en el entorno mas practico.
-     En el caso de no cumplir, llamaria la exception de la libreria de Laravel.
+   - **listSize**: Mostrar todos los tamanos guardados en la tabla **sizes**.
 
-     - **Unicidad de tamano**: Cuando anadir un nuevo tamano, no debe obtener un mismo sizeCode guardado en la tabla size.
+   ![listSize](/docs/imgs/listSize.png)
 
-     - **Existencia de tamano**: Cuando editar o eliminar un tamano, este tamano debe haber existido en la tabla size.
+   - **addSize**: Anadir un tamano nuevo al tabla **sizes**, establecer una vinculacion entre el tamano y grupo de tamano en la talba **sizeRelation**.
 
-     - **Existencia de Grupo de tamano**: Cuando anadir o editar un tamano, el sizeGroupCode que inscribe debe haber existido en la tabla sizeGroup
+   ![addSize](/docs/imgs/addSize.png)
+
+   - **editSize**: Editar las informaciones de tamano en la tabla **sizes** y **sizeRelation**.
+
+   ![editSize](/docs/imgs/editSize.png)
+
+   - **delSize**: Eliminar el dato de un tamano en la tabla **sizes** y **sizeRelation**.
+
+   ![delSize](/docs/imgs/delSize.png)
+
+
+
+   #### 4. definir reglas que debe cumplir(Exception en caso no)
+   Como en este hito hacemos un servicio de producction, necesita definir unas reglas o restricciones en el entorno mas practico.
+   En el caso de no cumplir, llamaria la exception de la libreria de Laravel.
+
+   - **Unicidad de tamano**: Cuando anadir un nuevo tamano, no debe obtener un mismo sizeCode guardado en la tabla size.
+
+   - **Existencia de tamano**: Cuando editar o eliminar un tamano, este tamano debe haber existido en la tabla size.
+
+   - **Existencia de Grupo de tamano**: Cuando anadir o editar un tamano, el sizeGroupCode que inscribe debe haber existido en la tabla sizeGroup
 
 
 
@@ -212,7 +212,7 @@ En este caso, interviene unos conceptos muy fundamentales sobre el proyecto y el
 
 
      
-   - **Gestion de dato de grupo de tamano** (Un parte a implementar)
+- **Gestion de dato de grupo de tamano** (Un parte a implementar)
 
 
 
