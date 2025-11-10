@@ -9,8 +9,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('sizes', function (Blueprint $table) {
-            $table->id();
-            $table->string('sizeCode')->unique();
+
+            $table->string('sizeCode')->primary();
             $table->string('sizeName');
             $table->string('sizeGroup');
             $table->boolean('sizeStatus')->default(true);

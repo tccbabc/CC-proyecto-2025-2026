@@ -9,6 +9,10 @@ class SizeGroup extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'sizeGroupCode';
+    public $incrementing = false;
+    protected $keyType = 'string';
+
     protected $fillable = [
         'sizeGroupCode',
         'sizeGroupName',
