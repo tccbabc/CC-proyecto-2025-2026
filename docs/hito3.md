@@ -7,15 +7,17 @@ pruebas y logs.
 
 
 ### 1. Técnica del framework
-    En este caso, interviene unos conceptos muy fundamentales sobre el proyecto y el marco del microservicio, los que se muestra en siguiente: 
+En este caso, interviene unos conceptos muy fundamentales sobre el proyecto y el marco del microservicio, los que se muestra en siguiente: 
     
 
   - **MCV**
+
     El patrón MVC separa la lógica de negocio, la interfaz y el control de flujo en tres capas bien definidas, el **Modelo**, la **Vista** y el **Controlador**,
     esta separación mejora la mantenibilidad del código, facilita las pruebas unitarias y permite la escalabilidad del microservicio. 
 
 
   - **REST**
+
     Representational State Transfer, que define un conjunto de principios arquitectónicos para la comunicación entre cliente y servidor mediante peticiones 
     HTTP estándar, como GET, POST, PUT, DELETE. En este caso, como el proyecto es una pagina. 
 
@@ -38,6 +40,7 @@ pruebas y logs.
 
 
   - **Laravel**
+
     Laravel es un framework PHP basado en el patrón **MVC** (Modelo–Vista–Controlador) que permite desarrollar aplicaciones web y microservicios de manera estructurada, segura y mantenible. 
     
     Su diseño modular, su sistema de rutas **RESTful** y sus componentes integrados (controladores, servicios, manejo de excepciones, logs y middleware) lo convierten en una opción ideal para construir APIs limpias y escalables.
@@ -97,27 +100,167 @@ pruebas y logs.
 
    - **Gestion de dato de tamano**: 
 
-     ### 1. disenar tabla
-     ### 2. definir operacion
-     ### 3. definir reglas que debe cumplir(Exception en caso no)
-     ### 4. definir estructura
+     #### 1. disenar tabla
 
 
-   - **Gestion de dato de grupo de tamano**
-
-     ### 1. disenar tabla
-     ### 2. definir operacion
-     ### 3. definir reglas que debe cumplir(Exception en caso no)
-     ### 4. definir estructura
-
-
-   - **Gestion de dato de color**: a implementar.   
-   - **Gestion de dato de grupo de color**: a implementar.
-   - **Gestion de dato de compra de material**: a implementar.
+     CREATE TABLE `sizes` (
+      `sizeCode` VARCHAR(255) NOT NULL,
+      `sizeName` VARCHAR(255) NOT NULL,
+      `sizeGroup` VARCHAR(255) NOT NULL,
+      `sizeStatus` TINYINT(1) NOT NULL DEFAULT 1,
+      `created_at` TIMESTAMP NULL DEFAULT NULL,
+      `updated_at` TIMESTAMP NULL DEFAULT NULL,
+      PRIMARY KEY (`sizeCode`)
+     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
 
-   ### Pruebas segun la interfaz
+     CREATE TABLE `size_relations` (
+      `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+      `sizeGroupCode` VARCHAR(255) NOT NULL,
+      `sizeCode` VARCHAR(255) NOT NULL,
+      `created_at` TIMESTAMP NULL DEFAULT NULL,
+      `updated_at` TIMESTAMP NULL DEFAULT NULL,
+      PRIMARY KEY (`id`),
+      CONSTRAINT `size_relations_sizeGroupCode_foreign`
+          FOREIGN KEY (`sizeGroupCode`) REFERENCES `size_groups`(`sizeGroupCode`)
+          ON DELETE NO ACTION,
+      CONSTRAINT `size_relations_sizeCode_foreign`
+          FOREIGN KEY (`sizeCode`) REFERENCES `sizes`(`sizeCode`)
+          ON DELETE NO ACTION
+     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+
+     #### 2. definir estructura del microServicio
+
+     - **capa Router**: Un fichero **api.php** donde define las rutina de api de los servicios de tamano.
+
+     ![api](/docs/imgs/listRouter.png)
+
+     - **capa Controller**: Un fichero **SizeController.php** donde define la validacion de los parametros de api y llama el servicio. 
+     definido en capa de servicio.
+
+     - **capa Service**: Un fichero **SizeService.php** donde realiza la logica de negicio concreto de los servicios.
+
+
+     #### 3. definir operacion
+
+     - **listSize**: Mostrar todos los tamanos guardados en la tabla **sizes**.
+
+     ![listSize](/docs/imgs/listSize.png)
+
+     - **addSize**: Anadir un tamano nuevo al tabla **sizes**, establecer una vinculacion entre el tamano y grupo de tamano en la talba **sizeRelation**.
+
+     ![addSize](/docs/imgs/addSize.png)
+
+     - **editSize**: Editar las informaciones de tamano en la tabla **sizes** y **sizeRelation**.
+
+     ![editSize](/docs/imgs/editSize.png)
+
+     - **delSize**: Eliminar el dato de un tamano en la tabla **sizes** y **sizeRelation**.
+
+     ![delSize](/docs/imgs/delSize.png)
+
+
+
+     #### 4. definir reglas que debe cumplir(Exception en caso no)
+     Como en este hito hacemos un servicio de producction, necesita definir unas reglas o restricciones en el entorno mas practico.
+     En el caso de no cumplir, llamaria la exception de la libreria de Laravel.
+
+     - **Unicidad de tamano**: Cuando anadir un nuevo tamano, no debe obtener un mismo sizeCode guardado en la tabla size.
+
+     - **Existencia de tamano**: Cuando editar o eliminar un tamano, este tamano debe haber existido en la tabla size.
+
+     - **Existencia de Grupo de tamano**: Cuando anadir o editar un tamano, el sizeGroupCode que inscribe debe haber existido en la tabla sizeGroup
+
+
+
+     
+   - **Gestion de dato de grupo de tamano** (Un parte a implementar)
+
+     #### 1. disenar tabla
+
+
+     CREATE TABLE `size_groups` (
+      `sizeGroupCode` VARCHAR(255) NOT NULL,
+      `sizeGroupName` VARCHAR(255) NOT NULL,
+      `sizeGroupStatus` TINYINT(1) NOT NULL DEFAULT 1,
+      `created_at` TIMESTAMP NULL DEFAULT NULL,
+      `updated_at` TIMESTAMP NULL DEFAULT NULL,
+      PRIMARY KEY (`sizeGroupCode`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+
+
+     CREATE TABLE `size_relations` (
+      `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+      `sizeGroupCode` VARCHAR(255) NOT NULL,
+      `sizeCode` VARCHAR(255) NOT NULL,
+      `created_at` TIMESTAMP NULL DEFAULT NULL,
+      `updated_at` TIMESTAMP NULL DEFAULT NULL,
+      PRIMARY KEY (`id`),
+      CONSTRAINT `size_relations_sizeGroupCode_foreign`
+          FOREIGN KEY (`sizeGroupCode`) REFERENCES `size_groups`(`sizeGroupCode`)
+          ON DELETE NO ACTION,
+      CONSTRAINT `size_relations_sizeCode_foreign`
+          FOREIGN KEY (`sizeCode`) REFERENCES `sizes`(`sizeCode`)
+          ON DELETE NO ACTION
+     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+
+
+     #### 2. definir estructura del microServicio
+
+
+     - **capa Router**: Un fichero **api.php** donde define las rutina de api de los servicios de grupo de tamano.
+
+
+     ![api](/docs/imgs/listRouter.png)
+
+
+     - **capa Controller**: Un fichero **SizeGroupController.php** donde define la validacion de los parametros de api y llama el servicio. 
+     definido en capa de servicio.
+
+
+     - **capa Service**: Un fichero **SizeGroupService.php** donde realiza la logica de negicio concreto de los servicios.
+
+
+
+     #### 3. definir operacion
+
+     - **listSizeGroup**: Mostrar todos los groups de tamano establecidos.
+
+     - **addSizeGroup**: Anadir un nuevo grupo de tamano.
+
+     - **editSizeGroup**: Editar un grupo de tamano.
+
+     - **delSizeGroup**: Eliminar un grupo de tamano.
+
+     - **removeSize** : Eliminar un tamano desde el mismo grupo de tamano.
+
+     - **appendSize**: Meter un tamano dentro al grupo de tamano.
+
+
+
+     #### 4. definir reglas que debe cumplir(Exception en caso no)
+
+     - **Unicidad de grupo de tamano**: Cuando anadir un nuevo grupo de tamano, no debe obtener un mismo sizeGroupCode guardado en la tabla sizeGroup.
+
+     - **Existencia de grupo de tamano**: Cuando editar o eliminar un grupo de tamano, este grupo debe haber existido en la tabla sizeGroup.
+
+     - **Existencia de tamano**: Cuando anadir un tamano a este mismo grupo, este tamano debe haber existido.
+
+     - **Estado de tamano**: Cuando anadir un tamano a este mismo grupo, este tamano debe tener el estado activo. 
+
+
+     
+
+   - **Gestion de dato de color** (a implementar).   
+   - **Gestion de dato de grupo de color** (a implementar).
+   - **Gestion de dato de compra de material** (a implementar).
 
 
 

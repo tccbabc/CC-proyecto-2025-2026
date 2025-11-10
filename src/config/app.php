@@ -123,4 +123,23 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+// como esta version es una version ligera, pues no puede utilizar el provider, necesito modificarlo luego
+//    'providers' => [
+//
+//        Illuminate\Auth\AuthServiceProvider::class,
+//        Illuminate\Broadcasting\BroadcastServiceProvider::class,
+//        Illuminate\Bus\BusServiceProvider::class,
+//        Illuminate\Cache\CacheServiceProvider::class,
+//        Illuminate\Foundation\Providers\ConsoleSupportServiceProvider::class,
+//        Illuminate\Hashing\HashServiceProvider::class,
+//        Illuminate\Mail\MailServiceProvider::class,
+//        Illuminate\Pagination\PaginationServiceProvider::class,
+//        Illuminate\Validation\ValidationServiceProvider::class,
+//        Illuminate\View\ViewServiceProvider::class,
+//        App\Providers\AppServiceProvider::class,
+//        App\Providers\RouteServiceProvider::class,
+//    ],
+
+
+
 ];

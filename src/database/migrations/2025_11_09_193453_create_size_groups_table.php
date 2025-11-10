@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('size_groups', function (Blueprint $table) {
-            $table->id();
-            $table->string('sizeGroupCode')->unique();
+
+            $table->string('sizeGroupCode')->primary();
             $table->string('sizeGroupName');
             $table->boolean('sizeGroupStatus')->default(true);
             $table->timestamps();

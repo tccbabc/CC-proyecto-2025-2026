@@ -9,6 +9,10 @@ class Size extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'sizeCode';
+    public $incrementing = false;
+    protected $keyType = 'string';
+
     protected $fillable = [
         'sizeCode',
         'sizeName',
