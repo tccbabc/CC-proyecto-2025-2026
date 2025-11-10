@@ -212,11 +212,11 @@ En este caso, interviene unos conceptos muy fundamentales sobre el proyecto y el
 
 
      
-- **Gestion de dato de grupo de tamano** (Un parte a implementar)
+### **Gestion de dato de grupo de tamano** (Un parte a implementar)
 
 
 
-   #### 1. disenar tabla
+  #### 1. disenar tabla
 
 
      CREATE TABLE `size_groups` (
@@ -271,7 +271,7 @@ En este caso, interviene unos conceptos muy fundamentales sobre el proyecto y el
 
 
 
-   #### 2. definir estructura del microServicio
+  #### 2. definir estructura del microServicio
 
 
 
@@ -292,7 +292,7 @@ En este caso, interviene unos conceptos muy fundamentales sobre el proyecto y el
 
 
 
-   #### 3. definir operacion
+  #### 3. definir operacion
 
    - **listSizeGroup**: Mostrar todos los groups de tamano establecidos.
 
@@ -308,7 +308,7 @@ En este caso, interviene unos conceptos muy fundamentales sobre el proyecto y el
 
 
 
-   #### 4. definir reglas que debe cumplir(Exception en caso no)
+  #### 4. definir reglas que debe cumplir(Exception en caso no)
 
    - **Unicidad de grupo de tamano**: Cuando anadir un nuevo grupo de tamano, no debe obtener un mismo sizeGroupCode guardado en la tabla sizeGroup.
 
