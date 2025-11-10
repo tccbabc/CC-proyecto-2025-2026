@@ -223,12 +223,12 @@ En este caso, interviene unos conceptos muy fundamentales sobre el proyecto y el
 
       PRIMARY KEY (`sizeGroupCode`)
 
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
 
 
-     CREATE TABLE `size_relations` (
+   CREATE TABLE `size_relations` (
 
       `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 
@@ -254,12 +254,12 @@ En este caso, interviene unos conceptos muy fundamentales sobre el proyecto y el
 
           ON DELETE NO ACTION
 
-     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
 
 
-     #### 2. definir estructura del microServicio
+   #### 2. definir estructura del microServicio
 
 
 
@@ -280,7 +280,7 @@ En este caso, interviene unos conceptos muy fundamentales sobre el proyecto y el
 
 
 
-     #### 3. definir operacion
+   #### 3. definir operacion
 
      - **listSizeGroup**: Mostrar todos los groups de tamano establecidos.
 
@@ -296,7 +296,7 @@ En este caso, interviene unos conceptos muy fundamentales sobre el proyecto y el
 
 
 
-     #### 4. definir reglas que debe cumplir(Exception en caso no)
+   #### 4. definir reglas que debe cumplir(Exception en caso no)
 
      - **Unicidad de grupo de tamano**: Cuando anadir un nuevo grupo de tamano, no debe obtener un mismo sizeGroupCode guardado en la tabla sizeGroup.
 
@@ -338,13 +338,13 @@ En este caso, interviene unos conceptos muy fundamentales sobre el proyecto y el
 
    Aqui hay unos claves interesantes:
    
-     - **single**: Eso significa que el log se escribe a un archivo fijo. Como en este proyecto, de momento no hace fatla una funcionalidad muy complicado.
+   - **single**: Eso significa que el log se escribe a un archivo fijo. Como en este proyecto, de momento no hace fatla una funcionalidad muy complicado.
 
-     - **debug**: Eso significa un nivel mas bajo de log. Eso es para mostrar toda la informacion durante el proceso de desarrolar. 
+   - **debug**: Eso significa un nivel mas bajo de log. Eso es para mostrar toda la informacion durante el proceso de desarrolar. 
 
-     - **tap**: Con eso podemos definir nuestro propio formato de log.
+   - **tap**: Con eso podemos definir nuestro propio formato de log.
 
-     - **path**: La ruta del archivo donde se escribre el log como el Handler, en este caso es un archivo api.log.
+   - **path**: La ruta del archivo donde se escribre el log como el Handler, en este caso es un archivo api.log.
    
 
    En el parte anterior, ya sabemos el Handler es un archivo de log. Y el Logger en este caso se cae en el Contrller. Como el siguiente ejemplo:
@@ -362,24 +362,79 @@ En este caso, interviene unos conceptos muy fundamentales sobre el proyecto y el
 
 ### 4. Correcta ejecución de los tests.
 
-   -**Documento de construccion**
-   -**Route de las APIs**
-   -**Capa de controller**
-   -**Capa de servicio**
-   -**resultado en Logs**
+En este parte, voy a hacer un conjunto de pruebas sobre el microServicio de tamano con la herramienta de endPoint **Postman** manualmente.
+
+- **Sin grupo de tamano establecido**:
+
+
+  **Anadir un tamano nuevo**: En este caso, cuando anadir un tamano nuevo, pero el grupo de tamano no existe, sale error.
 
 
 
+  ![error1](/docs/imgs/error1.png)
 
 
 
-
-
-![Entorno](/docs/imgs/entorno_docker.PNG)
-![Pagina Laravel](/docs/imgs/laravel.png)
+  **Editar un tamano a un grupo no existente**: En este caso, editar un tamano existente, pero cambia su grupo de tamano a uno no establecido.
 
 
 
+  ![error3](/docs/imgs/error3.png)
+
+
+
+- **Con grupo de tamano establecido**:
+
+  Despues de establecer un grupo de tamano con el codico de "STD", hacer los siguientes pruebas. Por ejemplo:
+
+
+  **Anadir un tamano nuevo**: Ya puede anadir un tamano nuevo. Con el api de **listSize**, vemos el tanamo nuevo,
+
+
+
+  ![tamano_nuevo](/docs/imgs/tamano_nuevo.png)
+
+
+  **Anadir un tamano repetido**: Ahora anadir un tamano nuevo con el mismo sizeCode que existe en el base de dato, en este caso, sale error y el sistema 
+  llama la Exception.
+
+
+
+  ![error2](/docs/imgs/error1.png)
+
+
+  **Editar un tamano existente**: Ahora modifica el estado del tamano a 0.
+
+
+  ![editarTamano](/docs/imgs/editarTamano.png)
+
+
+
+  **Editar un tamano no existente**: Ahora modifica el estado de un tamano no existente.
+
+
+
+  ![error4](/docs/imgs/error4.png)
+
+
+
+  **Eliminar un tamano no existente**: Ahora eliminar un tamano no existente.
+
+
+
+  ![error5](/docs/imgs/error5.png)
+
+
+
+  **Eliminar un tamano existente**: Ahora elimina el tamano "L".
+
+
+
+  ![eliminar1](/docs/imgs/eliminar1.png)
+
+
+
+  ![eliminar2](/docs/imgs/eliminar2.png)
 
 
 
