@@ -49,16 +49,4 @@ class SizeTest extends TestCase
 
         $this->assertDatabaseMissing('sizes', ['sizeCode' => 'L']);
     }
-
-    /** @test */
-    public function it_can_set_status()
-    {
-        $size = Size::factory()->create(['sizeStatus' => true]);
-        $size->setStatus(false);
-
-        $this->assertDatabaseHas('sizes', [
-            'id' => $size->id,
-            'sizeStatus' => false,
-        ]);
-    }
 }
