@@ -219,52 +219,52 @@ En este caso, interviene unos conceptos muy fundamentales sobre el proyecto y el
    #### 1. disenar tabla
 
 
-    CREATE TABLE `size_groups` (
+     CREATE TABLE `size_groups` (
 
-    `sizeGroupCode` VARCHAR(255) NOT NULL,
+     `sizeGroupCode` VARCHAR(255) NOT NULL,
 
-    `sizeGroupName` VARCHAR(255) NOT NULL,
+     `sizeGroupName` VARCHAR(255) NOT NULL,
 
-    `sizeGroupStatus` TINYINT(1) NOT NULL DEFAULT 1,
+     `sizeGroupStatus` TINYINT(1) NOT NULL DEFAULT 1,
 
-    `created_at` TIMESTAMP NULL DEFAULT NULL,
+     `created_at` TIMESTAMP NULL DEFAULT NULL,
 
-    `updated_at` TIMESTAMP NULL DEFAULT NULL,
+     `updated_at` TIMESTAMP NULL DEFAULT NULL,
 
-    PRIMARY KEY (`sizeGroupCode`)
+     PRIMARY KEY (`sizeGroupCode`)
 
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-
+     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
-    CREATE TABLE `size_relations` (
 
-    `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 
-    `sizeGroupCode` VARCHAR(255) NOT NULL,
+     CREATE TABLE `size_relations` (
 
-    `sizeCode` VARCHAR(255) NOT NULL,
+     `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
 
-    `created_at` TIMESTAMP NULL DEFAULT NULL,
+     `sizeGroupCode` VARCHAR(255) NOT NULL,
 
-    `updated_at` TIMESTAMP NULL DEFAULT NULL,
+     `sizeCode` VARCHAR(255) NOT NULL,
 
-    PRIMARY KEY (`id`),
+     `created_at` TIMESTAMP NULL DEFAULT NULL,
 
-    CONSTRAINT `size_relations_sizeGroupCode_foreign`
+     `updated_at` TIMESTAMP NULL DEFAULT NULL,
 
-    FOREIGN KEY (`sizeGroupCode`) REFERENCES `size_groups`(`sizeGroupCode`)
+     PRIMARY KEY (`id`),
 
-    ON DELETE NO ACTION,
+     CONSTRAINT `size_relations_sizeGroupCode_foreign`
 
-    CONSTRAINT `size_relations_sizeCode_foreign`
+     FOREIGN KEY (`sizeGroupCode`) REFERENCES `size_groups`(`sizeGroupCode`)
 
-    FOREIGN KEY (`sizeCode`) REFERENCES `sizes`(`sizeCode`)
+     ON DELETE NO ACTION,
 
-    ON DELETE NO ACTION
+     CONSTRAINT `size_relations_sizeCode_foreign`
 
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+     FOREIGN KEY (`sizeCode`) REFERENCES `sizes`(`sizeCode`)
+
+     ON DELETE NO ACTION
+
+     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
 
