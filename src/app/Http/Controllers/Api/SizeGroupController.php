@@ -19,8 +19,14 @@ class SizeGroupController extends Controller
 
     public function listSizeGroup()
     {
-        $groups = $this->service->listSizeGroup();
-        return response()->json($groups);
+        try {
+            $groups = $this->service->listSizeGroup();
+            Log::channel('api')->info('size-groups.list', ['count' => count($groups)]);
+            return response()->json($groups);
+        } catch (Exception $e) {
+            Log::channel('api')->error('size-groups.list_failed', ['error' => $e->getMessage()]);
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
     }
 
     public function addSizeGroup(Request $request)
@@ -33,8 +39,10 @@ class SizeGroupController extends Controller
             ]);
 
             $group = $this->service->addSizeGroup($validated);
+            Log::channel('api')->info('size-groups.add', ['sizeGroupCode' => $group->sizeGroupCode]);
             return response()->json($group, 201);
         } catch (Exception $e) {
+            Log::channel('api')->error('size-groups.add_failed', ['error' => $e->getMessage()]);
             return response()->json(['error' => $e->getMessage()], 400);
         }
     }
@@ -48,9 +56,11 @@ class SizeGroupController extends Controller
             ]);
 
             $group = $this->service->editSizeGroup($sizeGroupCode, $validated);
+            Log::channel('api')->info('size-groups.edit', ['sizeGroupCode' => $group->sizeGroupCode]);
             return response()->json($group);
 
         } catch (Exception $e) {
+            Log::channel('api')->error('size-groups.edit_failed', ['error' => $e->getMessage()]);
             return response()->json(['error' => $e->getMessage()], 400);
         }
     }
@@ -59,9 +69,11 @@ class SizeGroupController extends Controller
     {
         try {
             $this->service->delSizeGroup($sizeGroupCode);
+            Log::channel('api')->warning('size-groups.delete', ['sizeGroupCode' => $sizeGroupCode]);
             return response()->json(['message' => 'Deleted successfully']);
 
         } catch (Exception $e) {
+            Log::channel('api')->error('size-groups.delete_failed', ['error' => $e->getMessage()]);
             return response()->json(['error' => $e->getMessage()], 400);
         }
     }

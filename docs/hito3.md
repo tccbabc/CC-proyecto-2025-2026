@@ -104,35 +104,62 @@ En este caso, interviene unos conceptos muy fundamentales sobre el proyecto y el
 
 
      CREATE TABLE `sizes` (
+
       `sizeCode` VARCHAR(255) NOT NULL,
+
       `sizeName` VARCHAR(255) NOT NULL,
+
       `sizeGroup` VARCHAR(255) NOT NULL,
+
       `sizeStatus` TINYINT(1) NOT NULL DEFAULT 1,
+
       `created_at` TIMESTAMP NULL DEFAULT NULL,
+
       `updated_at` TIMESTAMP NULL DEFAULT NULL,
+
       PRIMARY KEY (`sizeCode`)
+
      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
 
      CREATE TABLE `size_relations` (
+
       `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+
       `sizeGroupCode` VARCHAR(255) NOT NULL,
+
       `sizeCode` VARCHAR(255) NOT NULL,
+
       `created_at` TIMESTAMP NULL DEFAULT NULL,
+
       `updated_at` TIMESTAMP NULL DEFAULT NULL,
+
       PRIMARY KEY (`id`),
+
       CONSTRAINT `size_relations_sizeGroupCode_foreign`
+
           FOREIGN KEY (`sizeGroupCode`) REFERENCES `size_groups`(`sizeGroupCode`)
+
           ON DELETE NO ACTION,
+
       CONSTRAINT `size_relations_sizeCode_foreign`
+
           FOREIGN KEY (`sizeCode`) REFERENCES `sizes`(`sizeCode`)
+
           ON DELETE NO ACTION
+
      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
 
      #### 2. definir estructura del microServicio
+
+
+
+     ![estructura](/docs/imgs/estructura.png)
+
+
 
      - **capa Router**: Un fichero **api.php** donde define las rutina de api de los servicios de tamano.
 
@@ -183,36 +210,60 @@ En este caso, interviene unos conceptos muy fundamentales sobre el proyecto y el
 
 
      CREATE TABLE `size_groups` (
+
       `sizeGroupCode` VARCHAR(255) NOT NULL,
+
       `sizeGroupName` VARCHAR(255) NOT NULL,
+
       `sizeGroupStatus` TINYINT(1) NOT NULL DEFAULT 1,
+
       `created_at` TIMESTAMP NULL DEFAULT NULL,
+
       `updated_at` TIMESTAMP NULL DEFAULT NULL,
+
       PRIMARY KEY (`sizeGroupCode`)
+
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
 
 
      CREATE TABLE `size_relations` (
+
       `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+
       `sizeGroupCode` VARCHAR(255) NOT NULL,
+
       `sizeCode` VARCHAR(255) NOT NULL,
+
       `created_at` TIMESTAMP NULL DEFAULT NULL,
+
       `updated_at` TIMESTAMP NULL DEFAULT NULL,
+
       PRIMARY KEY (`id`),
+
       CONSTRAINT `size_relations_sizeGroupCode_foreign`
+
           FOREIGN KEY (`sizeGroupCode`) REFERENCES `size_groups`(`sizeGroupCode`)
+
           ON DELETE NO ACTION,
+
       CONSTRAINT `size_relations_sizeCode_foreign`
+
           FOREIGN KEY (`sizeCode`) REFERENCES `sizes`(`sizeCode`)
+
           ON DELETE NO ACTION
+
      ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
 
 
      #### 2. definir estructura del microServicio
+
+
+
+     ![estructura](/docs/imgs/estructura.png)
 
 
      - **capa Router**: Un fichero **api.php** donde define las rutina de api de los servicios de grupo de tamano.
@@ -264,7 +315,49 @@ En este caso, interviene unos conceptos muy fundamentales sobre el proyecto y el
 
 
 
-### 3. Uso de logs
+### 3. Uso de logs 
+
+   **Monolog**: Monolog es una librería de registro de logs para PHP, muy utilizada y que sigue el estándar PSR-3. Laravel la usa por defecto para manejar todos los logs del sistema. Monolog tiene los siguientes componentes principales: 
+
+   - **Logger** (registrador): Recibe los mensajes de log (según su canal o nombre) y los envía a uno o varios handlers.
+
+   - **Handler** (manejador): Determina dónde se escribe el log, por ejemplo, en un archivo, en Syslog, en Slack, en un correo o en una base de datos.
+
+   - **Processor** (procesador): Añade o modifica información en cada entrada de log (por ejemplo: ID de usuario, IP, ID de la petición, etc.).
+
+   En este caso, usar el Monolog porque por un lado, es un log generico para PHP, por otro lado, es muy extenible, es decir, existe muchos tipos de handlers y formatters, y tambien es facil de implementar, sobre todo este proyecto no es muy grande, el Monolog es bastante suficiente para este proyecto.
+
+
+
+   **api.log**: En este proyecto, establecer un canal nuevo de log se llama **api**. Generalmente, el marco de Laravel ya ha establecido varios canales de logs
+   Pero en este proyecto, para mostrar la funcionalidad del log, establecer uno nuevo. La deficinion del nuevo canel se muestra en el siguiente:
+
+
+   ![canalLog](/docs/imgs/canalLog.png)
+
+
+   Aqui hay unos claves interesantes:
+   
+     - **single**: Eso significa que el log se escribe a un archivo fijo. Como en este proyecto, de momento no hace fatla una funcionalidad muy complicado.
+
+     - **debug**: Eso significa un nivel mas bajo de log. Eso es para mostrar toda la informacion durante el proceso de desarrolar. 
+
+     - **tap**: Con eso podemos definir nuestro propio formato de log.
+
+     - **path**: La ruta del archivo donde se escribre el log como el Handler, en este caso es un archivo api.log.
+   
+
+   En el parte anterior, ya sabemos el Handler es un archivo de log. Y el Logger en este caso se cae en el Contrller. Como el siguiente ejemplo:
+
+
+   **Log::channel('api')->error('sizes.add_failed', ['error' => $e->getMessage()]);**
+
+
+   Aqui hay unos ejemplos sencillos del resultado en log, siguiendo el proceso de desarrollo, aparece algunos errores, porque todavia no he anadido ningun grupo de tamano:
+
+
+   ![ejemploLog](/docs/imgs/ejemploLog.png)
+
 
 
 ### 4. Correcta ejecución de los tests.

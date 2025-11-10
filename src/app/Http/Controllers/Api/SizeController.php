@@ -19,8 +19,14 @@ class SizeController extends Controller
 
     public function listSize()
     {
-        $sizes = $this->service->listSize();
-        return response()->json($sizes);
+        try {
+            $sizes = $this->service->listSize();
+            Log::channel('api')->info('sizes.list', ['count' => count($sizes)]);
+            return response()->json($sizes);
+        } catch (Exception $e) {
+            Log::channel('api')->error('sizes.list_failed', ['error' => $e->getMessage()]);
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
     }
 
     public function addSize(Request $request)
@@ -34,9 +40,16 @@ class SizeController extends Controller
             ]);
 
             $size = $this->service->addSize($validated);
+
+            Log::channel('api')->info('sizes.add', [
+                'sizeCode' => $size->sizeCode,
+                'sizeGroup' => $size->sizeGroup
+            ]);
+
             return response()->json($size, 201);
 
         } catch (Exception $e) {
+            Log::channel('api')->error('sizes.add_failed', ['error' => $e->getMessage()]);
             return response()->json(['error' => $e->getMessage()], 400);
         }
     }
@@ -51,9 +64,11 @@ class SizeController extends Controller
             ]);
 
             $size = $this->service->editSize($sizeCode, $validated);
+            Log::channel('api')->info('sizes.edit', ['sizeCode' => $size->sizeCode]);
             return response()->json($size);
 
         } catch (Exception $e) {
+            Log::channel('api')->error('sizes.edit_failed', ['error' => $e->getMessage()]);
             return response()->json(['error' => $e->getMessage()], 400);
         }
     }
@@ -62,9 +77,11 @@ class SizeController extends Controller
     {
         try {
             $this->service->delSize($sizeCode);
+            Log::channel('api')->warning('sizes.delete', ['sizeCode' => $sizeCode]);
             return response()->json(['message' => 'Deleted successfully']);
 
         } catch (Exception $e) {
+            Log::channel('api')->error('sizes.delete_failed', ['error' => $e->getMessage()]);
             return response()->json(['error' => $e->getMessage()], 400);
         }
     }

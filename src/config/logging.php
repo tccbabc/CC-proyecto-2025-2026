@@ -4,6 +4,7 @@ use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;
 use Monolog\Processor\PsrLogMessageProcessor;
+use Monolog\Formatter\LineFormatter;
 
 return [
 
@@ -19,6 +20,7 @@ return [
     */
 
     'default' => env('LOG_CHANNEL', 'stack'),
+
 
     /*
     |--------------------------------------------------------------------------
@@ -125,6 +127,13 @@ return [
 
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
+        ],
+
+        'api' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/api.log'),
+            'level' => 'debug',
+            'tap' => [App\Logging\ApiLogFormatter::class],
         ],
 
     ],
