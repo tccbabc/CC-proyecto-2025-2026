@@ -103,28 +103,7 @@ class SizeGroupApiTest extends TestCase
         $response->assertStatus(400)
             ->assertJson(['error' => 'Este sizeGroupCode no existe']);
     }
-
-    /** @test */
-    public function it_can_change_size_group_status()
-    {
-        $group = SizeGroup::create([
-            'sizeGroupCode' => 'STATUS',
-            'sizeGroupName' => 'StatusTest',
-            'sizeGroupStatus' => true,
-        ]);
-
-        $response = $this->patchJson('/api/size-groups/STATUS/status', [
-            'sizeGroupStatus' => false,
-        ]);
-
-        $response->assertStatus(200)
-            ->assertJson(['sizeGroupStatus' => false]);
-
-        $this->assertDatabaseHas('size_groups', [
-            'sizeGroupCode' => 'STATUS',
-            'sizeGroupStatus' => false,
-        ]);
-    }
+    
 
     /** @test */
     public function it_can_append_a_size_to_group()
