@@ -4,11 +4,17 @@
 En este hito, dentro del framework Laravel, comenzaré a desarrollar todos los detalles relacionados con la lógica de negocio del proyecto, como las operaciones sobre datos básicos como tallas y colores, la creación de órdenes de compra de material, los cuales funcionan como microservicios. Y tambien disenare y pondre en ejecucion las
 pruebas y logs.
 
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
 
 
 ### 1. Técnica del framework
 En este caso, interviene unos conceptos muy fundamentales sobre el proyecto y el marco del microservicio, los que se muestra en siguiente: 
-    
+
+&nbsp;
+&nbsp;    
 
   - **MCV**
 
@@ -39,7 +45,7 @@ En este caso, interviene unos conceptos muy fundamentales sobre el proyecto y el
 
 
 
-  - **Laravel**
+  - **LARAVEL**
 
     Laravel es un framework PHP basado en el patrón **MVC** (Modelo–Vista–Controlador) que permite desarrollar aplicaciones web y microservicios de manera estructurada, segura y mantenible. 
     
@@ -77,12 +83,16 @@ En este caso, interviene unos conceptos muy fundamentales sobre el proyecto y el
       - **MiddleWare(Aun no implementado)**  
       Los middlewares son capas intermedias que interceptan las peticiones HTTP para aplicar validaciones o políticas de seguridad
 
-
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
 
 ### 2. Diseño en general de la API
+&nbsp;
+&nbsp;
 
-
-   ### diseno de negocio
+   ### Diseno de negocio
    El negocio principal de este proyecto (por el momento) se divide en las siguientes tres partes:
 
    - Gestión de los datos de tallas y grupos de tallas.
@@ -96,11 +106,11 @@ En este caso, interviene unos conceptos muy fundamentales sobre el proyecto y el
 
 
    ### Interfaz de microServicio
-
+ &nbsp;
 
    - **Gestion de dato de tamano**: 
 
-   #### 1. disenar tabla
+   #### 1. Disenar tabla
 
 
     CREATE TABLE `sizes` (
@@ -158,9 +168,12 @@ En este caso, interviene unos conceptos muy fundamentales sobre el proyecto y el
 
 
 
-   #### 2. definir estructura del microServicio
+   #### 2. Definir estructura del microServicio
 
-
+  &nbsp;
+  &nbsp;
+  &nbsp;
+  &nbsp;
 
    ![estructura](/docs/imgs/estructura.png)
 
@@ -168,10 +181,13 @@ En este caso, interviene unos conceptos muy fundamentales sobre el proyecto y el
   &nbsp;
   &nbsp;
   &nbsp;
+  &nbsp;
+  &nbsp;
+  &nbsp;
 
 
    - **capa Router**: Un fichero **api.php** donde define las rutina de api de los servicios de tamano.
-
+  &nbsp;
    ![api](/docs/imgs/listRouter.png)
 
    - **capa Controller**: Un fichero **SizeController.php** donde define la validacion de los parametros de api y llama el servicio. 
@@ -180,27 +196,28 @@ En este caso, interviene unos conceptos muy fundamentales sobre el proyecto y el
    - **capa Service**: Un fichero **SizeService.php** donde realiza la logica de negicio concreto de los servicios.
 
 
-   #### 3. definir operacion
+   #### 3. Definir operacion
 
    - **listSize**: Mostrar todos los tamanos guardados en la tabla **sizes**.
-
+  &nbsp;
    ![listSize](/docs/imgs/listSize.png)
 
    - **addSize**: Anadir un tamano nuevo al tabla **sizes**, establecer una vinculacion entre el tamano y grupo de tamano en la talba **sizeRelation**.
-
+  &nbsp;
    ![addSize](/docs/imgs/addSize.png)
 
    - **editSize**: Editar las informaciones de tamano en la tabla **sizes** y **sizeRelation**.
-
+  &nbsp;
    ![editSize](/docs/imgs/editSize.png)
 
    - **delSize**: Eliminar el dato de un tamano en la tabla **sizes** y **sizeRelation**.
-
+  &nbsp;
    ![delSize](/docs/imgs/delSize.png)
 
 
 
-   #### 4. definir reglas que debe cumplir(Exception en caso no)
+   #### 4. Definir reglas que debe cumplir(Exception en caso no)
+
    Como en este hito hacemos un servicio de producction, necesita definir unas reglas o restricciones en el entorno mas practico.
    En el caso de no cumplir, llamaria la exception de la libreria de Laravel.
 
@@ -220,63 +237,65 @@ En este caso, interviene unos conceptos muy fundamentales sobre el proyecto y el
 
 
 
-#### 1. disenar tabla
+#### 1. Disenar tabla
 
 
-CREATE TABLE `size_groups` (
+  CREATE TABLE `size_groups` (
 
-  `sizeGroupCode` VARCHAR(255) NOT NULL,
+    `sizeGroupCode` VARCHAR(255) NOT NULL,
 
-  `sizeGroupName` VARCHAR(255) NOT NULL,
+    `sizeGroupName` VARCHAR(255) NOT NULL,
 
-  `sizeGroupStatus` TINYINT(1) NOT NULL DEFAULT 1,
+    `sizeGroupStatus` TINYINT(1) NOT NULL DEFAULT 1,
 
-  `created_at` TIMESTAMP NULL DEFAULT NULL,
+    `created_at` TIMESTAMP NULL DEFAULT NULL,
 
-  `updated_at` TIMESTAMP NULL DEFAULT NULL,
+    `updated_at` TIMESTAMP NULL DEFAULT NULL,
 
-   PRIMARY KEY (`sizeGroupCode`)
+     PRIMARY KEY (`sizeGroupCode`)
 
- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-
-
-
- CREATE TABLE `size_relations` (
-
-  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-
-  `sizeGroupCode` VARCHAR(255) NOT NULL,
-
-  `sizeCode` VARCHAR(255) NOT NULL,
-
-  `created_at` TIMESTAMP NULL DEFAULT NULL,
-
-  `updated_at` TIMESTAMP NULL DEFAULT NULL,
-
-   PRIMARY KEY (`id`),
-
-   CONSTRAINT `size_relations_sizeGroupCode_foreign`
-
-   FOREIGN KEY (`sizeGroupCode`) REFERENCES `size_groups`(`sizeGroupCode`)
-
-   ON DELETE NO ACTION,
-
-   CONSTRAINT `size_relations_sizeCode_foreign`
-
-   FOREIGN KEY (`sizeCode`) REFERENCES `sizes`(`sizeCode`)
-
-   ON DELETE NO ACTION
-
- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
 
 
+   CREATE TABLE `size_relations` (
+
+    `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+
+    `sizeGroupCode` VARCHAR(255) NOT NULL,
+
+    `sizeCode` VARCHAR(255) NOT NULL,
+
+    `created_at` TIMESTAMP NULL DEFAULT NULL,
+
+    `updated_at` TIMESTAMP NULL DEFAULT NULL,
+
+     PRIMARY KEY (`id`),
+
+     CONSTRAINT `size_relations_sizeGroupCode_foreign`
+
+     FOREIGN KEY (`sizeGroupCode`) REFERENCES `size_groups`(`sizeGroupCode`)
+
+     ON DELETE NO ACTION,
+
+     CONSTRAINT `size_relations_sizeCode_foreign`
+
+     FOREIGN KEY (`sizeCode`) REFERENCES `sizes`(`sizeCode`)
+
+     ON DELETE NO ACTION
+
+   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
-#### 2. definir estructura del microServicio
 
+
+
+
+#### 2. Definir estructura del microServicio
+
+&nbsp;
+&nbsp;
 
 
    ![estructura](/docs/imgs/estructura.png)
@@ -284,7 +303,8 @@ CREATE TABLE `size_groups` (
 
    - **capa Router**: Un fichero **api.php** donde define las rutina de api de los servicios de grupo de tamano.
 
-
+&nbsp;
+&nbsp;
    ![api](/docs/imgs/listRouter.png)
 
 
@@ -389,7 +409,8 @@ En este parte, voy a hacer un conjunto de pruebas sobre el **microServicio de ta
   **Anadir un tamano nuevo**: En este caso, cuando anadir un tamano nuevo, pero el grupo de tamano no existe, sale error.
 
 
-
+&nbsp;
+&nbsp;
   ![error1](/docs/imgs/error1.png)
 
 
@@ -397,7 +418,8 @@ En este parte, voy a hacer un conjunto de pruebas sobre el **microServicio de ta
   **Editar un tamano a un grupo no existente**: En este caso, editar un tamano existente, pero cambia su grupo de tamano a uno no establecido.
 
 
-
+&nbsp;
+&nbsp;
   ![error3](/docs/imgs/error3.png)
 
 
@@ -410,7 +432,8 @@ En este parte, voy a hacer un conjunto de pruebas sobre el **microServicio de ta
   **Anadir un tamano nuevo**: Ya puede anadir un tamano nuevo. Con el api de **listSize**, vemos el tanamo nuevo,
 
 
-
+&nbsp;
+&nbsp;
   ![tamano_nuevo](/docs/imgs/tamano_nuevo.png)
 
 
@@ -418,13 +441,15 @@ En este parte, voy a hacer un conjunto de pruebas sobre el **microServicio de ta
   llama la Exception.
 
 
-
+&nbsp;
+&nbsp;
   ![error2](/docs/imgs/error1.png)
 
 
   **Editar un tamano existente**: Ahora modifica el estado del tamano a 0.
 
-
+&nbsp;
+&nbsp;
   ![editarTamano](/docs/imgs/editarTamano.png)
 
 
@@ -432,7 +457,8 @@ En este parte, voy a hacer un conjunto de pruebas sobre el **microServicio de ta
   **Editar un tamano no existente**: Ahora modifica el estado de un tamano no existente.
 
 
-
+&nbsp;
+&nbsp;
   ![error4](/docs/imgs/error4.png)
 
 
@@ -440,7 +466,8 @@ En este parte, voy a hacer un conjunto de pruebas sobre el **microServicio de ta
   **Eliminar un tamano no existente**: Ahora eliminar un tamano no existente.
 
 
-
+&nbsp;
+&nbsp;
   ![error5](/docs/imgs/error5.png)
 
 
@@ -448,21 +475,23 @@ En este parte, voy a hacer un conjunto de pruebas sobre el **microServicio de ta
   **Eliminar un tamano existente**: Ahora elimina el tamano "L".
 
 
-
+&nbsp;
+&nbsp;
   ![eliminar1](/docs/imgs/eliminar1.png)
 
 
-
+&nbsp;
   ![eliminar2](/docs/imgs/eliminar2.png)
 
 
 Mientras hace las pruebas, todos los resultados se guarda en el archivo de log.
 
-
+&nbsp;
+&nbsp;
 ![logs](/docs/imgs/logs.png)
 
 
-Ademas, tambien he integrado todas las pruebas de microServicio de tamano y groupo de tamano con GIT ACTION.
+Ademas, tambien he integrado todas las pruebas de microServicio de tamano y groupo de tamano con GIT ACTION. Y como el hito2, corregiendo los errors que informe el GIT ACTION
 
 
 
