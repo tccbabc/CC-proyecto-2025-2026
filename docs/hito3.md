@@ -164,6 +164,10 @@ En este caso, interviene unos conceptos muy fundamentales sobre el proyecto y el
 
    ![estructura](/docs/imgs/estructura.png)
 
+  
+  &nbsp;
+  &nbsp;
+  &nbsp;
 
 
    - **capa Router**: Un fichero **api.php** donde define las rutina de api de los servicios de tamano.
@@ -216,62 +220,62 @@ En este caso, interviene unos conceptos muy fundamentales sobre el proyecto y el
 
 
 
-  #### 1. disenar tabla
+#### 1. disenar tabla
 
 
-     CREATE TABLE `size_groups` (
+CREATE TABLE `size_groups` (
 
-     `sizeGroupCode` VARCHAR(255) NOT NULL,
+  `sizeGroupCode` VARCHAR(255) NOT NULL,
 
-     `sizeGroupName` VARCHAR(255) NOT NULL,
+  `sizeGroupName` VARCHAR(255) NOT NULL,
 
-     `sizeGroupStatus` TINYINT(1) NOT NULL DEFAULT 1,
+  `sizeGroupStatus` TINYINT(1) NOT NULL DEFAULT 1,
 
-     `created_at` TIMESTAMP NULL DEFAULT NULL,
+  `created_at` TIMESTAMP NULL DEFAULT NULL,
 
-     `updated_at` TIMESTAMP NULL DEFAULT NULL,
+  `updated_at` TIMESTAMP NULL DEFAULT NULL,
 
-     PRIMARY KEY (`sizeGroupCode`)
+   PRIMARY KEY (`sizeGroupCode`)
 
-     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-
-
-
-     CREATE TABLE `size_relations` (
-
-     `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-
-     `sizeGroupCode` VARCHAR(255) NOT NULL,
-
-     `sizeCode` VARCHAR(255) NOT NULL,
-
-     `created_at` TIMESTAMP NULL DEFAULT NULL,
-
-     `updated_at` TIMESTAMP NULL DEFAULT NULL,
-
-     PRIMARY KEY (`id`),
-
-     CONSTRAINT `size_relations_sizeGroupCode_foreign`
-
-     FOREIGN KEY (`sizeGroupCode`) REFERENCES `size_groups`(`sizeGroupCode`)
-
-     ON DELETE NO ACTION,
-
-     CONSTRAINT `size_relations_sizeCode_foreign`
-
-     FOREIGN KEY (`sizeCode`) REFERENCES `sizes`(`sizeCode`)
-
-     ON DELETE NO ACTION
-
-     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
 
 
+ CREATE TABLE `size_relations` (
+
+  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+
+  `sizeGroupCode` VARCHAR(255) NOT NULL,
+
+  `sizeCode` VARCHAR(255) NOT NULL,
+
+  `created_at` TIMESTAMP NULL DEFAULT NULL,
+
+  `updated_at` TIMESTAMP NULL DEFAULT NULL,
+
+   PRIMARY KEY (`id`),
+
+   CONSTRAINT `size_relations_sizeGroupCode_foreign`
+
+   FOREIGN KEY (`sizeGroupCode`) REFERENCES `size_groups`(`sizeGroupCode`)
+
+   ON DELETE NO ACTION,
+
+   CONSTRAINT `size_relations_sizeCode_foreign`
+
+   FOREIGN KEY (`sizeCode`) REFERENCES `sizes`(`sizeCode`)
+
+   ON DELETE NO ACTION
+
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
-  #### 2. definir estructura del microServicio
+
+
+
+
+#### 2. definir estructura del microServicio
 
 
 
@@ -317,6 +321,8 @@ En este caso, interviene unos conceptos muy fundamentales sobre el proyecto y el
    - **Existencia de tamano**: Cuando anadir un tamano a este mismo grupo, este tamano debe haber existido.
 
    - **Estado de tamano**: Cuando anadir un tamano a este mismo grupo, este tamano debe tener el estado activo. 
+
+   - **Unicidad entre grupo de tamano y grupo**: En el mismo grupo de tamano, para cada tamano, solo permite la existencia de uno. 
 
 
      
@@ -375,7 +381,7 @@ En este caso, interviene unos conceptos muy fundamentales sobre el proyecto y el
 
 ### 4. Correcta ejecución de los tests.
 
-En este parte, voy a hacer un conjunto de pruebas sobre el microServicio de tamano con la herramienta de endPoint **Postman** manualmente.
+En este parte, voy a hacer un conjunto de pruebas sobre el **microServicio de tamano** con la herramienta de endPoint **Postman** manualmente.
 
 - **Sin grupo de tamano establecido**:
 
@@ -454,6 +460,9 @@ Mientras hace las pruebas, todos los resultados se guarda en el archivo de log.
 
 
 ![logs](/docs/imgs/logs.png)
+
+
+Ademas, tambien he integrado todas las pruebas de microServicio de tamano y groupo de tamano con GIT ACTION.
 
 
 

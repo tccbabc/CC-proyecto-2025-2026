@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Size;
 use App\Models\SizeGroup;
 use App\Models\SizeRelation;
 use Exception;
@@ -45,6 +46,57 @@ class SizeGroupService
         SizeRelation::where('sizeGroupCode', $sizeGroupCode)->delete();
 
         $group->delete();
+    }
+
+    public function appendSize(string $sizeGroupCode, string $sizeCode): void
+    {
+        $group = SizeGroup::find($sizeGroupCode);
+        if (!$group) {
+            throw new Exception("El sizeGroupCode no existe");
+        }
+
+        $size = Size::find($sizeCode);
+        if (!$size) {
+            throw new Exception("El sizeCode no existe");
+        }
+
+        if ($size->sizeStatus != 1 && $size->sizeStatus != true) {
+            throw new Exception("El sizeCode no está activo (status != 1)");
+        }
+
+        $exists = SizeRelation::where('sizeGroupCode', $sizeGroupCode)
+            ->where('sizeCode', $sizeCode)
+            ->exists();
+
+        if ($exists) {
+            throw new Exception("Ya existe la relación entre este size y el grupo");
+        }
+
+        SizeRelation::create([
+            'sizeGroupCode' => $sizeGroupCode,
+            'sizeCode' => $sizeCode,
+        ]);
+    }
+
+    public function removeSize(string $sizeGroupCode, string $sizeCode): void
+    {
+        if (!SizeGroup::where('sizeGroupCode', $sizeGroupCode)->exists()) {
+            throw new Exception("El sizeGroupCode no existe");
+        }
+
+        if (!Size::where('sizeCode', $sizeCode)->exists()) {
+            throw new Exception("El sizeCode no existe");
+        }
+
+        $relation = SizeRelation::where('sizeGroupCode', $sizeGroupCode)
+            ->where('sizeCode', $sizeCode)
+            ->first();
+
+        if (!$relation) {
+            throw new Exception("No existe relación entre este size y el grupo");
+        }
+
+        $relation->delete();
     }
 
 }
