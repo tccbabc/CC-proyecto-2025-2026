@@ -84,6 +84,14 @@ class SizeGroupApiTest extends TestCase
             'sizeGroupStatus' => true,
         ]);
 
+        $size = Size::create([
+            'sizeCode' => 'S',
+            'sizeName' => 'Small',
+            'sizeGroup' => 'DEL', 
+            'sizeStatus' => true,
+        ]);
+
+
         SizeRelation::create([
             'sizeGroupCode' => 'DEL',
             'sizeCode' => 'S',
@@ -103,7 +111,7 @@ class SizeGroupApiTest extends TestCase
         $response->assertStatus(400)
             ->assertJson(['error' => 'Este sizeGroupCode no existe']);
     }
-    
+
 
     /** @test */
     public function it_can_append_a_size_to_group()
