@@ -33,8 +33,8 @@ class SizeGroupController extends Controller
     {
         try {
             $validated = $request->validate([
-                'sizeGroupCode' => 'required|string|max:50',
-                'sizeGroupName' => 'required|string|max:100',
+                'sizeGroupCode' => 'required|string',
+                'sizeGroupName' => 'required|string',
                 'sizeGroupStatus' => 'boolean',
             ]);
 
@@ -51,7 +51,7 @@ class SizeGroupController extends Controller
     {
         try {
             $validated = $request->validate([
-                'sizeGroupName' => 'required|string|max:100',
+                'sizeGroupName' => 'required|string',
                 'sizeGroupStatus' => 'boolean',
             ]);
 
@@ -74,6 +74,44 @@ class SizeGroupController extends Controller
 
         } catch (Exception $e) {
             Log::channel('api')->error('size-groups.delete_failed', ['error' => $e->getMessage()]);
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
+    }
+
+    public function appendSize(string $sizeGroupCode, string $sizeCode)
+    {
+        try {
+            $this->service->appendSize($sizeGroupCode, $sizeCode);
+            Log::channel('api')->info('size-groups.appendSize', [
+                'sizeGroupCode' => $sizeGroupCode,
+                'sizeCode' => $sizeCode
+            ]);
+            return response()->json(['message' => 'Size agregado correctamente al grupo']);
+        } catch (Exception $e) {
+            Log::channel('api')->error('size-groups.appendSize_failed', [
+                'sizeGroupCode' => $sizeGroupCode,
+                'sizeCode' => $sizeCode,
+                'error' => $e->getMessage()
+            ]);
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
+    }
+
+    public function removeSize(string $sizeGroupCode, string $sizeCode)
+    {
+        try {
+            $this->service->removeSize($sizeGroupCode, $sizeCode);
+            Log::channel('api')->warning('size-groups.removeSize', [
+                'sizeGroupCode' => $sizeGroupCode,
+                'sizeCode' => $sizeCode
+            ]);
+            return response()->json(['message' => 'Size eliminado del grupo correctamente']);
+        } catch (Exception $e) {
+            Log::channel('api')->error('size-groups.removeSize_failed', [
+                'sizeGroupCode' => $sizeGroupCode,
+                'sizeCode' => $sizeCode,
+                'error' => $e->getMessage()
+            ]);
             return response()->json(['error' => $e->getMessage()], 400);
         }
     }

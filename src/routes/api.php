@@ -16,4 +16,6 @@ Route::prefix('size-groups')->group(function () {
     Route::post('/', [SizeGroupController::class, 'addSizeGroup']);
     Route::put('/{sizeGroupCode}', [SizeGroupController::class, 'editSizeGroup']);
     Route::delete('/{sizeGroupCode}', [SizeGroupController::class, 'delSizeGroup']);
+    Route::post('/{sizeGroupCode}/append-size/{sizeCode}', [SizeGroupController::class, 'appendSize']);
+    Route::delete('/{sizeGroupCode}/remove-size/{sizeCode}', [SizeGroupController::class, 'removeSize']);
 });

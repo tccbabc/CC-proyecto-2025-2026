@@ -33,9 +33,9 @@ class SizeController extends Controller
     {
         try {
             $validated = $request->validate([
-                'sizeCode' => 'required|string|max:50',
-                'sizeName' => 'required|string|max:100',
-                'sizeGroup' => 'required|string|max:100',
+                'sizeCode' => 'required|string',
+                'sizeName' => 'required|string',
+                'sizeGroup' => 'required|string',
                 'sizeStatus' => 'boolean'
             ]);
 
@@ -58,8 +58,8 @@ class SizeController extends Controller
     {
         try {
             $validated = $request->validate([
-                'sizeName' => 'required|string|max:100',
-                'sizeGroup' => 'required|string|max:100',
+                'sizeName' => 'required|string',
+                'sizeGroup' => 'required|string',
                 'sizeStatus' => 'boolean'
             ]);
 

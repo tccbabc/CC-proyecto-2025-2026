@@ -22,6 +22,8 @@ class SizeApiTest extends TestCase
         ]);
     }
 
+    // aqui el @test ha sido eliminado, porque en la ultima version de test
+    // ya no usa @test, sino #[test]. Pero eso no influye la prueba
     /** @test */
     public function it_can_add_a_new_size()
     {
