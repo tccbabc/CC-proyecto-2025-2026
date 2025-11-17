@@ -87,7 +87,7 @@ class SizeGroupApiTest extends TestCase
         $size = Size::create([
             'sizeCode' => 'S',
             'sizeName' => 'Small',
-            'sizeGroup' => 'DEL', 
+            'sizeGroup' => 'DEL',
             'sizeStatus' => true,
         ]);
 
