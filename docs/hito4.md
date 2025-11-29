@@ -3,7 +3,6 @@
 ## Composición de servicios
 
 &nbsp;
-&nbsp;
 
 El clúster de contenedores desarrollado en este proyecto implementa una arquitectura basada en microservicios. Aunque en este caso no divido los microservicios separados. Mientras para los servicios auxiliares, cada componente se ejecuta en su propio contenedor, siguiendo el principio Single Responsibility y permitiendo escalabilidad, mantenibilidad y despliegue independiente.
 
@@ -20,6 +19,8 @@ El clúster de contenedores desarrollado en este proyecto implementa una arquite
 
 ### 1. La estructura del clúster de contenedores.
 
+&nbsp;
+
  - **servidor PHP-FPM:** Microservicio que ejecuta toda la lógica de negocio de la aplicación. El PHP-FPM, que significa PHP FastCGI Process Manager, es una implementación avanzada de PHP que usa el protocolo FastCGI para procesar solicitudes PHP de forma rápida y eficiente. Como hoy en dia, el protocolo de FastCGI es lo mas usado, y el FPM es el administrador de procesos que hace que PHP sea más rápido y más estable con FastCGI, pues en este caso, usamos un servidor de PHP-FPM.
 
  - **Base de dato MySQL:** El contenedor Base de dato MySQL desempeña un papel fundamental como sistema principal de persistencia de datos.Su función es almacenar, gestionar y garantizar la integridad de toda la información estructurada utilizada por la aplicación construida en Laravel.
@@ -32,9 +33,9 @@ El clúster de contenedores desarrollado en este proyecto implementa una arquite
 
  - **Logs**: **ELK**, que consiste en tres contenedores como **elasticsearch**, **logstash** y **kibana**. 
 
-            Elasticsearch: Motor de búsqueda y almacenamiento de logs estructurados.La aplicación y Logstash envían logs aquí para análisis avanzado.
-            Logstash: Encargado de recolectar y transformar logs generados por Laravel (ubicados en storage/logs) para enviarlos a Elasticsearch.
-            Kibana: Interfaz gráfica que permite consultar, analizar y visualizar los datos almacenados en Elasticsearch.
+            **Elasticsearch**: Motor de búsqueda y almacenamiento de logs estructurados.La aplicación y Logstash envían logs aquí para análisis avanzado.
+            **Logstash**: Encargado de recolectar y transformar logs generados por Laravel (ubicados en storage/logs) para enviarlos a Elasticsearch.
+            **Kibana**: Interfaz gráfica que permite consultar, analizar y visualizar los datos almacenados en Elasticsearch.
 
 
 &nbsp;
@@ -172,11 +173,145 @@ GitHub Packages es un servicio de GitHub que permite almacenar, gestionar y dist
 **Atencion** Como en este proyecto, todavia estoy desarrollando la aplicacion, la modificare frecuntemente, asique de momento no despliego la funcionalidad de actualización automática de la imagen en GitAction.
 
 
-
 ### 5. El compose.yaml
+
+Es un archivo de configuración usado por Docker Compose que permite definir, configurar y ejecutar múltiples contenedores como si fueran un solo sistema o aplicación.
+
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+
+![dockercompose1](/docs/imgs/docker_compose1.png)
+![dockercompose2](/docs/imgs/docker_compose2.png)
+![dockercompose3](/docs/imgs/docker_compose3.png)
+
+
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+
+
+5.1 **microservicio PHP-FPM:** Este servicio contiene la lógica principal de la aplicación implementada en Laravel.
+ 
+    - image: se utiliza la imagen remota, ghcr.io/tccbabc/laravel_app:latest, construida previamente y publicada en GitHub Packages.
+
+    - build: permite reconstruir la imagen localmente durante el desarrollo.
+
+    - working_dir: define el directorio de trabajo /var/www.
+
+    - volumes: sincroniza el código fuente local con el contenedor.
+
+    - environment: variables que permiten conectar con MySQL y Redis.
+
+    - depends_on: garantiza que MySQL y Redis estén disponibles antes de iniciar Laravel.
+
+
+
+5.2 **Nginx:** Este servicio implementa el servidor HTTP que recibe peticiones externas y las dirige al servicio app.
+
+    - image: nginx:stable.
+
+    - ports: expone el puerto 8080:80 para evitar conflictos con otros servidores locales.
+
+    - volumes: monta el código fuente y el archivo de configuración Nginx.
+
+    - depends_on: garantiza que Laravel esté disponible antes de iniciar Nginx.
+
+
+
+5.3 **MySQL 8.0:** Servicio encargado de la persistencia relacional de datos.
+
+    - image: mysql:8.0, ampliamente soportada por Laravel.
+
+    - environment: define la base de datos inicial, usuario y credenciales.
+
+    - ports: expone el puerto 3306 para acceder al motor desde el exterior.
+
+    - volumes: db_data garantiza persistencia aunque el contenedor se elimine.
+
+
+
+5.4 **redis:** Sistema de almacenamiento en memoria utilizado para cache y colas.
+
+    - image: redis:7
+
+    - ports: expone el puerto 6390:6379 para evitar conflictos con Redis instalados en la máquina local.
+
+
+
+5.5 **phpmyadmin:** Panel web para administrar la base de datos MySQL.
+
+    - image: phpmyadmin/phpmyadmin
+
+    - environment: apunta al contenedor db.
+
+    - ports: expuesto en 8081:80.
+
+    - depends_on: espera a MySQL para iniciar.
+
+
+
+5.6 **elasticsearch:** Componente central del stack ELK, encargado de almacenar y indexar logs.
+
+    - image: docker.elastic.co/elasticsearch/elasticsearch:8.12.0
+
+    - environment:
+
+        discovery.type=single-node → modo desarrollo.
+
+        xpack.security.enabled=false → evita autenticación.
+
+        ES_JAVA_OPTS → limita el uso de memoria a 512 MB.
+
+    - ports: expuesto en 9200.
+
+    - volumes: elastic_data para persistir índices.
+
+
+
+5.7 **logstash:** Procesa los logs generados por la aplicación y los envía a Elasticsearch.
+
+    - image: docker.elastic.co/logstash/logstash:8.12.0
+
+    - depends_on: espera a Elasticsearch.
+
+    - ports: expone 5044, entrada de logs tipo Beats.
+
+    - volumes:
+
+         pipeline personalizado
+
+         acceso a storage/logs de Laravel
+
+    - environment: limita memoria a 256 MB.
+
+
+
+5.8 **kibana:** Interfaz gráfica para visualizar los datos almacenados en Elasticsearch.
+
+    - image: docker.elastic.co/kibana/kibana:8.12.0
+
+    - depends_on: espera a Elasticsearch.
+
+    - ports: expone 5601:5601.
+
+    - environment: define el host de Elasticsearch.
+
+
+5.9 **Definición de volúmenes persistentes:** Estos volúmenes garantizan que los datos críticos del sistema (base de datos e índices de Elasticsearch) sobrevivan a reconstrucciones o borrados de contenedores.
+
+
+El archivo docker-compose.yaml implementa un clúster completo y modular, capaz de ejecutar la aplicación en un entorno idéntico en cualquier máquina. Su estructura clara y su integración con GHCR y ELK lo convierten en una solución profesional y preparada para un entorno cloud-native.
+
+
 
 ### 6. El funcionamiento del cúster de contenedores. 
 En este paso, va a completar todas las funciones de la aplicacion desplegada.
+
+
+
 
 
 
