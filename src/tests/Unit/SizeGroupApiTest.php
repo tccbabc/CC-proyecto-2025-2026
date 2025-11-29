@@ -7,6 +7,7 @@ use Tests\TestCase;
 use App\Models\SizeGroup;
 use App\Models\Size;
 use App\Models\SizeRelation;
+use PHPUnit\Framework\Attributes\Test;
 
 class SizeGroupApiTest extends TestCase
 {
@@ -23,7 +24,7 @@ class SizeGroupApiTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_add_a_new_size_group()
     {
         $response = $this->postJson('/api/size-groups', [
@@ -38,7 +39,7 @@ class SizeGroupApiTest extends TestCase
         $this->assertDatabaseHas('size_groups', ['sizeGroupCode' => 'NEW']);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_list_all_size_groups()
     {
         SizeGroup::create([
@@ -52,7 +53,7 @@ class SizeGroupApiTest extends TestCase
             ->assertJsonFragment(['sizeGroupCode' => 'A']);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_edit_a_size_group()
     {
         SizeGroup::create([
@@ -75,7 +76,7 @@ class SizeGroupApiTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_delete_a_size_group_and_its_relations()
     {
         $group = SizeGroup::create([
@@ -104,7 +105,7 @@ class SizeGroupApiTest extends TestCase
         $this->assertDatabaseMissing('size_relations', ['sizeGroupCode' => 'DEL']);
     }
 
-    /** @test */
+    #[Test]
     public function it_throws_error_when_deleting_nonexistent_group()
     {
         $response = $this->deleteJson('/api/size-groups/NOEXISTE');
@@ -113,7 +114,7 @@ class SizeGroupApiTest extends TestCase
     }
 
 
-    /** @test */
+    #[Test]
     public function it_can_append_a_size_to_group()
     {
         $group = SizeGroup::create([
@@ -139,7 +140,7 @@ class SizeGroupApiTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_cannot_append_a_size_with_status_zero()
     {
         $group = SizeGroup::create([
@@ -160,7 +161,7 @@ class SizeGroupApiTest extends TestCase
             ->assertJson(['error' => 'El sizeCode no está activo (status != 1)']);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_remove_a_size_from_group()
     {
         $group = SizeGroup::create([
@@ -191,7 +192,7 @@ class SizeGroupApiTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_throws_error_when_removing_nonexistent_relation()
     {
         $group = SizeGroup::create([
