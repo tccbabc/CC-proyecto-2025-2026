@@ -5,12 +5,13 @@ namespace Tests\Unit;
 use App\Models\Size;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use PHPUnit\Framework\Attributes\Test;
 
 class SizeTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function it_can_add_a_size()
     {
         $size = Size::addSize([
@@ -26,7 +27,7 @@ class SizeTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_edit_a_size()
     {
         $size = Size::factory()->create([
@@ -41,7 +42,7 @@ class SizeTest extends TestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_delete_a_size()
     {
         $size = Size::factory()->create(['sizeCode' => 'L']);

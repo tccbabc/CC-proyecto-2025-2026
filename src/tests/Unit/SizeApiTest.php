@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use App\Models\Size;
 use App\Models\SizeGroup;
+use PHPUnit\Framework\Attributes\Test;
 
 class SizeApiTest extends TestCase
 {
@@ -24,7 +25,8 @@ class SizeApiTest extends TestCase
 
     // aqui el @test ha sido eliminado, porque en la ultima version de test
     // ya no usa @test, sino #[test]. Pero eso no influye la prueba
-    /** @test */
+
+    #[Test]
     public function it_can_add_a_new_size()
     {
         $response = $this->postJson('/api/sizes', [
@@ -40,7 +42,7 @@ class SizeApiTest extends TestCase
         $this->assertDatabaseHas('sizes', ['sizeCode' => 'S']);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_list_all_sizes()
     {
         Size::create([
@@ -55,7 +57,7 @@ class SizeApiTest extends TestCase
             ->assertJsonFragment(['sizeCode' => 'M']);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_edit_a_size()
     {
         Size::create([
@@ -75,7 +77,7 @@ class SizeApiTest extends TestCase
     }
 
 
-    /** @test */
+    #[Test]
     public function it_can_delete_a_size()
     {
         $size = Size::create([
@@ -91,7 +93,7 @@ class SizeApiTest extends TestCase
         $this->assertDatabaseMissing('sizes', ['sizeCode' => 'D']);
     }
 
-    /** @test */
+    #[Test]
     public function it_throws_error_when_group_does_not_exist()
     {
         $response = $this->postJson('/api/sizes', [
