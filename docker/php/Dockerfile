@@ -19,6 +19,7 @@ RUN pecl install redis && docker-php-ext-enable redis
 RUN pecl install xdebug && docker-php-ext-enable xdebug
 
 WORKDIR /var/www
+COPY ./src /var/www
 RUN usermod -u 1000 www-data || true
 EXPOSE 9000
 

@@ -2,6 +2,7 @@
 
 services:
   app:
+    image: ghcr.io/tccbabc/laravel_app:latest
     build:
       context: ./docker/php
       dockerfile: Dockerfile
