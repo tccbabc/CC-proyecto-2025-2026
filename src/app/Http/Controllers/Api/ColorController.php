@@ -22,9 +22,11 @@ class ColorController extends Controller
         try {
             $colors = $this->service->listColor();
             Log::channel('api')->info('colors.list', ['count' => count($colors)]);
+            Log::channel('elk')->info('colors.list', ['count' => count($colors)]);
             return response()->json($colors);
         } catch (Exception $e) {
             Log::channel('api')->error('colors.list_failed', ['error' => $e->getMessage()]);
+            Log::channel('elk')->error('colors.list_failed', ['error' => $e->getMessage()]);
             return response()->json(['error' => $e->getMessage()], 400);
         }
     }
@@ -46,10 +48,16 @@ class ColorController extends Controller
                 'colorGroup' => $color->colorGroup
             ]);
 
+            Log::channel('elk')->info('colors.add', [
+                'colorCode' => $color->colorCode,
+                'colorGroup' => $color->colorGroup
+            ]);
+
             return response()->json($color, 201);
 
         } catch (Exception $e) {
             Log::channel('api')->error('colors.add_failed', ['error' => $e->getMessage()]);
+            Log::channel('elk')->error('colors.add_failed', ['error' => $e->getMessage()]);
             return response()->json(['error' => $e->getMessage()], 400);
         }
     }
@@ -65,10 +73,12 @@ class ColorController extends Controller
 
             $color = $this->service->editColor($colorCode, $validated);
             Log::channel('api')->info('colors.edit', ['colorCode' => $color->colorCode]);
+            Log::channel('elk')->info('colors.edit', ['colorCode' => $color->colorCode]);
             return response()->json($color);
 
         } catch (Exception $e) {
             Log::channel('api')->error('colors.edit_failed', ['error' => $e->getMessage()]);
+            Log::channel('elk')->error('colors.edit_failed', ['error' => $e->getMessage()]);
             return response()->json(['error' => $e->getMessage()], 400);
         }
     }
@@ -78,10 +88,12 @@ class ColorController extends Controller
         try {
             $this->service->delColor($colorCode);
             Log::channel('api')->warning('colors.delete', ['colorCode' => $colorCode]);
+            Log::channel('elk')->warning('colors.delete', ['colorCode' => $colorCode]);
             return response()->json(['message' => 'Deleted successfully']);
 
         } catch (Exception $e) {
             Log::channel('api')->error('colors.delete_failed', ['error' => $e->getMessage()]);
+            Log::channel('elk')->error('colors.delete_failed', ['error' => $e->getMessage()]);
             return response()->json(['error' => $e->getMessage()], 400);
         }
     }

@@ -193,7 +193,7 @@ Es un archivo de configuración usado por Docker Compose que permite definir, co
 &nbsp;
 
 
-5.1 **microservicio PHP-FPM:** Este servicio contiene la lógica principal de la aplicación implementada en Laravel.
+5.1 **Microservicio PHP-FPM:** Este servicio contiene la lógica principal de la aplicación implementada en Laravel.
  
     - image: se utiliza la imagen remota, ghcr.io/tccbabc/laravel_app:latest, construida previamente y publicada en GitHub Packages.
 
@@ -233,7 +233,7 @@ Es un archivo de configuración usado por Docker Compose que permite definir, co
 
 
 
-5.4 **redis:** Sistema de almacenamiento en memoria utilizado para cache y colas.
+5.4 **Redis:** Sistema de almacenamiento en memoria utilizado para cache y colas.
 
     - image: redis:7
 
@@ -241,7 +241,7 @@ Es un archivo de configuración usado por Docker Compose que permite definir, co
 
 
 
-5.5 **phpmyadmin:** Panel web para administrar la base de datos MySQL.
+5.5 **Phpmyadmin:** Panel web para administrar la base de datos MySQL.
 
     - image: phpmyadmin/phpmyadmin
 
@@ -253,7 +253,7 @@ Es un archivo de configuración usado por Docker Compose que permite definir, co
 
 
 
-5.6 **elasticsearch:** Componente central del stack ELK, encargado de almacenar y indexar logs.
+5.6 **Elasticsearch:** Componente central del stack ELK, encargado de almacenar y indexar logs.
 
     - image: docker.elastic.co/elasticsearch/elasticsearch:8.12.0
 
@@ -271,7 +271,7 @@ Es un archivo de configuración usado por Docker Compose que permite definir, co
 
 
 
-5.7 **logstash:** Procesa los logs generados por la aplicación y los envía a Elasticsearch.
+5.7 **Logstash:** Procesa los logs generados por la aplicación y los envía a Elasticsearch.
 
     - image: docker.elastic.co/logstash/logstash:8.12.0
 
@@ -289,7 +289,7 @@ Es un archivo de configuración usado por Docker Compose que permite definir, co
 
 
 
-5.8 **kibana:** Interfaz gráfica para visualizar los datos almacenados en Elasticsearch.
+5.8 **Kibana:** Interfaz gráfica para visualizar los datos almacenados en Elasticsearch.
 
     - image: docker.elastic.co/kibana/kibana:8.12.0
 
@@ -308,12 +308,69 @@ El archivo docker-compose.yaml implementa un clúster completo y modular, capaz 
 
 
 ### 6. El funcionamiento del cúster de contenedores. 
-En este paso, va a completar todas las funciones de la aplicacion desplegada.
+En este paso, va a completar todas las funciones de la aplicacion desplegada, en concreto, son:
+
+- **Gestion de dato de color**
+- **Gestion de dato de grupo de color**
+- **Gestion de dato de compra de material**
 
 
+Las funciones que tienen relacion con color son muy similares con las de tamano, asi que en este parte no voy a contar mas. 
 
 
+6.1 **Tabla de Gestion de dato de compra de material**:
 
+    CREATE TABLE `material_design_requirements` (
+
+     `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+     `colorCode` VARCHAR(255) NOT NULL,
+     `colorGroupCode` VARCHAR(255) NOT NULL,
+     `sizeCode` VARCHAR(255) NOT NULL,
+     `sizeGroupCode` VARCHAR(255) NOT NULL,
+     `status` TINYINT(1) NOT NULL DEFAULT 1,
+     `providerCode` VARCHAR(255) DEFAULT NULL,
+     `providerName` VARCHAR(255) DEFAULT NULL,
+     `created_at` TIMESTAMP NULL DEFAULT NULL,
+     `updated_at` TIMESTAMP NULL DEFAULT NULL,
+
+    PRIMARY KEY (`id`),
+    CONSTRAINT `mdr_colorCode_fk`
+     FOREIGN KEY (`colorCode`)
+     REFERENCES `colors`(`colorCode`)
+     ON DELETE NO ACTION,  
+
+    CONSTRAINT `mdr_colorGroupCode_fk`
+     FOREIGN KEY (`colorGroupCode`)
+     REFERENCES `color_groups`(`colorGroupCode`)
+     ON DELETE NO ACTION,
+
+    CONSTRAINT `mdr_sizeCode_fk`
+     FOREIGN KEY (`sizeCode`)
+     REFERENCES `sizes`(`sizeCode`)
+     ON DELETE NO ACTION,
+
+    CONSTRAINT `mdr_sizeGroupCode_fk`
+     FOREIGN KEY (`sizeGroupCode`)
+     REFERENCES `size_groups`(`sizeGroupCode`)
+     ON DELETE NO ACTION
+
+   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+6.2 **Restriciones de las operaciones:** 
+   
+   - anadir tamano: el tamano debe tener relacion con el grupo de tamano
+
+   - editar tamano: el tamano debe tener relacion con el grupo de tamano
+
+   - anadir grupo de tamano: el grupo de tamano debe tener relacion con el grupo de tamano
+
+   - editar grupo de tamano: el grupo de tamano debe tener relacion con el grupo de tamano
+
+   - en caso de color, tiene la misma restriccion como tamano.
+
+
+6.3 **Prueba y ELK:**
 
 ![Pagina Laravel](/docs/imgs/laravel.png)
 

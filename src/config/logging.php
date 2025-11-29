@@ -54,6 +54,12 @@ return [
 
     'channels' => [
 
+        'elk' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/elk.log'),
+            'level' => 'debug',
+        ],
+
         'stack' => [
             'driver' => 'stack',
             'channels' => explode(',', (string) env('LOG_STACK', 'single')),
