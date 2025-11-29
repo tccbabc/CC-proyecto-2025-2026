@@ -22,9 +22,11 @@ class SizeController extends Controller
         try {
             $sizes = $this->service->listSize();
             Log::channel('api')->info('sizes.list', ['count' => count($sizes)]);
+            Log::channel('elk')->info('sizes.list', ['count' => count($sizes)]);
             return response()->json($sizes);
         } catch (Exception $e) {
             Log::channel('api')->error('sizes.list_failed', ['error' => $e->getMessage()]);
+            Log::channel('elk')->error('sizes.list_failed', ['error' => $e->getMessage()]);
             return response()->json(['error' => $e->getMessage()], 400);
         }
     }
@@ -45,11 +47,16 @@ class SizeController extends Controller
                 'sizeCode' => $size->sizeCode,
                 'sizeGroup' => $size->sizeGroup
             ]);
+            Log::channel('elk')->info('sizes.add', [
+                'sizeCode' => $size->sizeCode,
+                'sizeGroup' => $size->sizeGroup
+            ]);
 
             return response()->json($size, 201);
 
         } catch (Exception $e) {
             Log::channel('api')->error('sizes.add_failed', ['error' => $e->getMessage()]);
+            Log::channel('elk')->error('sizes.add_failed', ['error' => $e->getMessage()]);
             return response()->json(['error' => $e->getMessage()], 400);
         }
     }
@@ -65,10 +72,12 @@ class SizeController extends Controller
 
             $size = $this->service->editSize($sizeCode, $validated);
             Log::channel('api')->info('sizes.edit', ['sizeCode' => $size->sizeCode]);
+            Log::channel('elk')->info('sizes.edit', ['sizeCode' => $size->sizeCode]);
             return response()->json($size);
 
         } catch (Exception $e) {
             Log::channel('api')->error('sizes.edit_failed', ['error' => $e->getMessage()]);
+            Log::channel('elk')->error('sizes.edit_failed', ['error' => $e->getMessage()]);
             return response()->json(['error' => $e->getMessage()], 400);
         }
     }
@@ -78,10 +87,12 @@ class SizeController extends Controller
         try {
             $this->service->delSize($sizeCode);
             Log::channel('api')->warning('sizes.delete', ['sizeCode' => $sizeCode]);
+            Log::channel('elk')->warning('sizes.delete', ['sizeCode' => $sizeCode]);
             return response()->json(['message' => 'Deleted successfully']);
 
         } catch (Exception $e) {
             Log::channel('api')->error('sizes.delete_failed', ['error' => $e->getMessage()]);
+            Log::channel('elk')->error('sizes.delete_failed', ['error' => $e->getMessage()]);
             return response()->json(['error' => $e->getMessage()], 400);
         }
     }

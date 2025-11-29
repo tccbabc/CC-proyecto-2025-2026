@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\ColorGroupController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\SizeController;
 use App\Http\Controllers\Api\SizeGroupController;
+use App\Http\Controllers\Api\MaterialDesignRequirementController;
 
 Route::prefix('sizes')->group(function () {
     Route::get('/', [SizeController::class, 'listSize']);
@@ -36,4 +37,12 @@ Route::prefix('color-groups')->group(function () {
     Route::delete('/{colorGroupCode}', [ColorGroupController::class, 'delColorGroup']);
     Route::post('/{colorGroupCode}/append-color/{colorCode}', [ColorGroupController::class, 'appendColor']);
     Route::delete('/{colorGroupCode}/remove-color/{colorCode}', [ColorGroupController::class, 'removeColor']);
+});
+
+
+Route::prefix('material-design-requirements')->group(function () {
+    Route::get('/', [MaterialDesignRequirementController::class, 'listMaterialDesignRequirement']);
+    Route::post('/', [MaterialDesignRequirementController::class, 'addMaterialDesignRequirement']);
+    Route::put('/{id}', [MaterialDesignRequirementController::class, 'editMaterialDesignRequirement']);
+    Route::delete('/{id}', [MaterialDesignRequirementController::class, 'delMaterialDesignRequirement']);
 });
