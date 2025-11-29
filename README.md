@@ -109,11 +109,11 @@ se ha elegido la licencia MIT, que además es la más utilizada.
 
 ## Enlace de los hitos
 
-- **hito1.md:** [hito1.md](../docs/hito1.md)
+- **hito1.md:** [hito1.md](./docs/hito1.md)
 
-- **hito2.md:** [hito2.md](../docs/hito2.md)
+- **hito2.md:** [hito2.md](./docs/hito2.md)
 
-- **hito3.md:** [hito3.md](../docs/hito3.md)
+- **hito3.md:** [hito3.md](./docs/hito3.md)
 
-- **hito4.md:** [hito4.md](../docs/hito4.md)
+- **hito4.md:** [hito4.md](./docs/hito4.md)
 
