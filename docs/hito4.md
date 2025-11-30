@@ -354,7 +354,7 @@ Las funciones que tienen relacion con color son muy similares con las de tamano,
      REFERENCES `size_groups`(`sizeGroupCode`)
      ON DELETE NO ACTION
 
-   ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
 6.2 **Restriciones de las operaciones:** 
@@ -372,7 +372,25 @@ Las funciones que tienen relacion con color son muy similares con las de tamano,
 
 6.3 **Prueba y ELK:**
 
-![Pagina Laravel](/docs/imgs/laravel.png)
+
+En los pasos anteriores, ya he configuracion las funcionalidades nuevas de Log en un conjunto de contenedores que se llama **ELK**. Ahora no solamente podemos leer los logs en el archivo api.log, sino tambien en la pagina especial de kibana, en este caso es **http://localhost:5601/**. Alli podemos obtener las informaciones de las pruebas. 
+
+
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+
+
+![size-ELK](/docs/imgs/size-ELK.png)
+![color-ELK](/docs/imgs/color-ELK.png)
+![material-ELK](/docs/imgs/material-ELK.png)
+
+
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
 
 
 ### Actualizar readme
