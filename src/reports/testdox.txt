@@ -1,3 +1,21 @@
+Color Api (Tests\Unit\ColorApi)
+ [x] It can add a new color
+ [x] It can list all colors
+ [x] It can edit a color
+ [x] It can delete a color
+ [x] It throws error when group does not exist
+
+Color Group Api (Tests\Unit\ColorGroupApi)
+ [x] It can add a new color group
+ [x] It can list all color groups
+ [x] It can edit a color group
+ [x] It can delete a color group and its relations
+ [x] It throws error when deleting nonexistent group
+ [x] It can append a color to group
+ [x] It cannot append a color with status zero
+ [x] It can remove a color from group
+ [x] It throws error when removing nonexistent relation
+
 Example (Tests\Feature\Example)
  [x] The application returns a successful response
 
@@ -7,9 +25,36 @@ Example (Tests\Unit\Example)
 Homepage (Tests\Feature\Homepage)
  [x] Homepage returns 200
 
+Material Design Requirement Api (Tests\Unit\MaterialDesignRequirementApi)
+ [x] It can add a new material design requirement
+ [x] It can list all material design requirements
+ [x] It can edit a material design requirement
+ [x] It can delete a material design requirement
+ [x] It throws error if color does not match group
+ [x] It throws error if size does not match group
+ [x] It throws error if color or colorgroup does not exist
+ [x] It throws error if size or sizegroup does not exist
+
 Size (Tests\Unit\Size)
  [x] It can add a size
  [x] It can edit a size
  [x] It can delete a size
- [x] It can set status
+
+Size Api (Tests\Feature\SizeApi)
+ [x] It can add a new size
+ [x] It can list all sizes
+ [x] It can edit a size
+ [x] It can delete a size
+ [x] It throws error when group does not exist
+
+Size Group Api (Tests\Unit\SizeGroupApi)
+ [x] It can add a new size group
+ [x] It can list all size groups
+ [x] It can edit a size group
+ [x] It can delete a size group and its relations
+ [x] It throws error when deleting nonexistent group
+ [x] It can append a size to group
+ [x] It cannot append a size with status zero
+ [x] It can remove a size from group
+ [x] It throws error when removing nonexistent relation
 

@@ -51,6 +51,26 @@
         </style>
     </head>
     <body>
+        <h2>Color Api (Tests\Unit\ColorApi)</h2>
+        <ul>
+            <li class="success">It can add a new color</li>
+            <li class="success">It can list all colors</li>
+            <li class="success">It can edit a color</li>
+            <li class="success">It can delete a color</li>
+            <li class="success">It throws error when group does not exist</li>
+        </ul>
+        <h2>Color Group Api (Tests\Unit\ColorGroupApi)</h2>
+        <ul>
+            <li class="success">It can add a new color group</li>
+            <li class="success">It can list all color groups</li>
+            <li class="success">It can edit a color group</li>
+            <li class="success">It can delete a color group and its relations</li>
+            <li class="success">It throws error when deleting nonexistent group</li>
+            <li class="success">It can append a color to group</li>
+            <li class="success">It cannot append a color with status zero</li>
+            <li class="success">It can remove a color from group</li>
+            <li class="success">It throws error when removing nonexistent relation</li>
+        </ul>
         <h2>Example (Tests\Feature\Example)</h2>
         <ul>
             <li class="success">The application returns a successful response</li>
@@ -63,12 +83,42 @@
         <ul>
             <li class="success">Homepage returns 200</li>
         </ul>
+        <h2>Material Design Requirement Api (Tests\Unit\MaterialDesignRequirementApi)</h2>
+        <ul>
+            <li class="success">It can add a new material design requirement</li>
+            <li class="success">It can list all material design requirements</li>
+            <li class="success">It can edit a material design requirement</li>
+            <li class="success">It can delete a material design requirement</li>
+            <li class="success">It throws error if color does not match group</li>
+            <li class="success">It throws error if size does not match group</li>
+            <li class="success">It throws error if color or colorgroup does not exist</li>
+            <li class="success">It throws error if size or sizegroup does not exist</li>
+        </ul>
         <h2>Size (Tests\Unit\Size)</h2>
         <ul>
             <li class="success">It can add a size</li>
             <li class="success">It can edit a size</li>
             <li class="success">It can delete a size</li>
-            <li class="success">It can set status</li>
+        </ul>
+        <h2>Size Api (Tests\Feature\SizeApi)</h2>
+        <ul>
+            <li class="success">It can add a new size</li>
+            <li class="success">It can list all sizes</li>
+            <li class="success">It can edit a size</li>
+            <li class="success">It can delete a size</li>
+            <li class="success">It throws error when group does not exist</li>
+        </ul>
+        <h2>Size Group Api (Tests\Unit\SizeGroupApi)</h2>
+        <ul>
+            <li class="success">It can add a new size group</li>
+            <li class="success">It can list all size groups</li>
+            <li class="success">It can edit a size group</li>
+            <li class="success">It can delete a size group and its relations</li>
+            <li class="success">It throws error when deleting nonexistent group</li>
+            <li class="success">It can append a size to group</li>
+            <li class="success">It cannot append a size with status zero</li>
+            <li class="success">It can remove a size from group</li>
+            <li class="success">It throws error when removing nonexistent relation</li>
         </ul>
     </body>
 </html>

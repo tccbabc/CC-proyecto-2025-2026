@@ -1,23 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testsuites>
-  <testsuite name="/var/www/phpunit.xml" tests="7" assertions="7" errors="0" failures="0" skipped="0" time="5.797383">
-    <testsuite name="Unit" tests="5" assertions="5" errors="0" failures="0" skipped="0" time="4.869493">
-      <testsuite name="Tests\Unit\ExampleTest" file="/var/www/tests/Unit/ExampleTest.php" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.084566">
-        <testcase name="test_that_true_is_true" file="/var/www/tests/Unit/ExampleTest.php" line="12" class="Tests\Unit\ExampleTest" classname="Tests.Unit.ExampleTest" assertions="1" time="0.084566"/>
+  <testsuite name="/var/www/phpunit.xml" tests="42" assertions="91" errors="0" failures="0" skipped="0" time="11.253079">
+    <testsuite name="Unit" tests="40" assertions="89" errors="0" failures="0" skipped="0" time="10.685835">
+      <testsuite name="Tests\Unit\ColorApiTest" file="/var/www/tests/Unit/ColorApiTest.php" tests="5" assertions="11" errors="0" failures="0" skipped="0" time="6.225373">
+        <testcase name="it_can_add_a_new_color" file="/var/www/tests/Unit/ColorApiTest.php" line="27" class="Tests\Unit\ColorApiTest" classname="Tests.Unit.ColorApiTest" assertions="3" time="5.651509"/>
+        <testcase name="it_can_list_all_colors" file="/var/www/tests/Unit/ColorApiTest.php" line="43" class="Tests\Unit\ColorApiTest" classname="Tests.Unit.ColorApiTest" assertions="2" time="0.176538"/>
+        <testcase name="it_can_edit_a_color" file="/var/www/tests/Unit/ColorApiTest.php" line="58" class="Tests\Unit\ColorApiTest" classname="Tests.Unit.ColorApiTest" assertions="2" time="0.132860"/>
+        <testcase name="it_can_delete_a_color" file="/var/www/tests/Unit/ColorApiTest.php" line="77" class="Tests\Unit\ColorApiTest" classname="Tests.Unit.ColorApiTest" assertions="2" time="0.140793"/>
+        <testcase name="it_throws_error_when_group_does_not_exist" file="/var/www/tests/Unit/ColorApiTest.php" line="93" class="Tests\Unit\ColorApiTest" classname="Tests.Unit.ColorApiTest" assertions="2" time="0.123674"/>
       </testsuite>
-      <testsuite name="Tests\Unit\SizeTest" file="/var/www/tests/Unit/SizeTest.php" tests="4" assertions="4" errors="0" failures="0" skipped="0" time="4.784927">
-        <testcase name="it_can_add_a_size" file="/var/www/tests/Unit/SizeTest.php" line="14" class="Tests\Unit\SizeTest" classname="Tests.Unit.SizeTest" assertions="1" time="4.163520"/>
-        <testcase name="it_can_edit_a_size" file="/var/www/tests/Unit/SizeTest.php" line="30" class="Tests\Unit\SizeTest" classname="Tests.Unit.SizeTest" assertions="1" time="0.384959"/>
-        <testcase name="it_can_delete_a_size" file="/var/www/tests/Unit/SizeTest.php" line="45" class="Tests\Unit\SizeTest" classname="Tests.Unit.SizeTest" assertions="1" time="0.125957"/>
-        <testcase name="it_can_set_status" file="/var/www/tests/Unit/SizeTest.php" line="54" class="Tests\Unit\SizeTest" classname="Tests.Unit.SizeTest" assertions="1" time="0.110491"/>
+      <testsuite name="Tests\Unit\ColorGroupApiTest" file="/var/www/tests/Unit/ColorGroupApiTest.php" tests="9" assertions="23" errors="0" failures="0" skipped="0" time="1.147378">
+        <testcase name="it_can_add_a_new_color_group" file="/var/www/tests/Unit/ColorGroupApiTest.php" line="28" class="Tests\Unit\ColorGroupApiTest" classname="Tests.Unit.ColorGroupApiTest" assertions="3" time="0.152639"/>
+        <testcase name="it_can_list_all_color_groups" file="/var/www/tests/Unit/ColorGroupApiTest.php" line="43" class="Tests\Unit\ColorGroupApiTest" classname="Tests.Unit.ColorGroupApiTest" assertions="2" time="0.121034"/>
+        <testcase name="it_can_edit_a_color_group" file="/var/www/tests/Unit/ColorGroupApiTest.php" line="57" class="Tests\Unit\ColorGroupApiTest" classname="Tests.Unit.ColorGroupApiTest" assertions="3" time="0.135653"/>
+        <testcase name="it_can_delete_a_color_group_and_its_relations" file="/var/www/tests/Unit/ColorGroupApiTest.php" line="80" class="Tests\Unit\ColorGroupApiTest" classname="Tests.Unit.ColorGroupApiTest" assertions="3" time="0.124631"/>
+        <testcase name="it_throws_error_when_deleting_nonexistent_group" file="/var/www/tests/Unit/ColorGroupApiTest.php" line="108" class="Tests\Unit\ColorGroupApiTest" classname="Tests.Unit.ColorGroupApiTest" assertions="2" time="0.124644"/>
+        <testcase name="it_can_append_a_color_to_group" file="/var/www/tests/Unit/ColorGroupApiTest.php" line="116" class="Tests\Unit\ColorGroupApiTest" classname="Tests.Unit.ColorGroupApiTest" assertions="3" time="0.122992"/>
+        <testcase name="it_cannot_append_a_color_with_status_zero" file="/var/www/tests/Unit/ColorGroupApiTest.php" line="142" class="Tests\Unit\ColorGroupApiTest" classname="Tests.Unit.ColorGroupApiTest" assertions="2" time="0.117247"/>
+        <testcase name="it_can_remove_a_color_from_group" file="/var/www/tests/Unit/ColorGroupApiTest.php" line="163" class="Tests\Unit\ColorGroupApiTest" classname="Tests.Unit.ColorGroupApiTest" assertions="3" time="0.124254"/>
+        <testcase name="it_throws_error_when_removing_nonexistent_relation" file="/var/www/tests/Unit/ColorGroupApiTest.php" line="194" class="Tests\Unit\ColorGroupApiTest" classname="Tests.Unit.ColorGroupApiTest" assertions="2" time="0.124284"/>
+      </testsuite>
+      <testsuite name="Tests\Unit\ExampleTest" file="/var/www/tests/Unit/ExampleTest.php" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.008292">
+        <testcase name="test_that_true_is_true" file="/var/www/tests/Unit/ExampleTest.php" line="12" class="Tests\Unit\ExampleTest" classname="Tests.Unit.ExampleTest" assertions="1" time="0.008292"/>
+      </testsuite>
+      <testsuite name="Tests\Unit\MaterialDesignRequirementApiTest" file="/var/www/tests/Unit/MaterialDesignRequirementApiTest.php" tests="8" assertions="17" errors="0" failures="0" skipped="0" time="1.111310">
+        <testcase name="it_can_add_a_new_material_design_requirement" file="/var/www/tests/Unit/MaterialDesignRequirementApiTest.php" line="66" class="Tests\Unit\MaterialDesignRequirementApiTest" classname="Tests.Unit.MaterialDesignRequirementApiTest" assertions="3" time="0.162795"/>
+        <testcase name="it_can_list_all_material_design_requirements" file="/var/www/tests/Unit/MaterialDesignRequirementApiTest.php" line="88" class="Tests\Unit\MaterialDesignRequirementApiTest" classname="Tests.Unit.MaterialDesignRequirementApiTest" assertions="2" time="0.160595"/>
+        <testcase name="it_can_edit_a_material_design_requirement" file="/var/www/tests/Unit/MaterialDesignRequirementApiTest.php" line="105" class="Tests\Unit\MaterialDesignRequirementApiTest" classname="Tests.Unit.MaterialDesignRequirementApiTest" assertions="2" time="0.136533"/>
+        <testcase name="it_can_delete_a_material_design_requirement" file="/var/www/tests/Unit/MaterialDesignRequirementApiTest.php" line="124" class="Tests\Unit\MaterialDesignRequirementApiTest" classname="Tests.Unit.MaterialDesignRequirementApiTest" assertions="2" time="0.142814"/>
+        <testcase name="it_throws_error_if_color_does_not_match_group" file="/var/www/tests/Unit/MaterialDesignRequirementApiTest.php" line="143" class="Tests\Unit\MaterialDesignRequirementApiTest" classname="Tests.Unit.MaterialDesignRequirementApiTest" assertions="2" time="0.126786"/>
+        <testcase name="it_throws_error_if_size_does_not_match_group" file="/var/www/tests/Unit/MaterialDesignRequirementApiTest.php" line="163" class="Tests\Unit\MaterialDesignRequirementApiTest" classname="Tests.Unit.MaterialDesignRequirementApiTest" assertions="2" time="0.132249"/>
+        <testcase name="it_throws_error_if_color_or_colorgroup_does_not_exist" file="/var/www/tests/Unit/MaterialDesignRequirementApiTest.php" line="183" class="Tests\Unit\MaterialDesignRequirementApiTest" classname="Tests.Unit.MaterialDesignRequirementApiTest" assertions="2" time="0.122603"/>
+        <testcase name="it_throws_error_if_size_or_sizegroup_does_not_exist" file="/var/www/tests/Unit/MaterialDesignRequirementApiTest.php" line="197" class="Tests\Unit\MaterialDesignRequirementApiTest" classname="Tests.Unit.MaterialDesignRequirementApiTest" assertions="2" time="0.126936"/>
+      </testsuite>
+      <testsuite name="Tests\Feature\SizeApiTest" file="/var/www/tests/Unit/SizeApiTest.php" tests="5" assertions="11" errors="0" failures="0" skipped="0" time="0.631974">
+        <testcase name="it_can_add_a_new_size" file="/var/www/tests/Unit/SizeApiTest.php" line="28" class="Tests\Feature\SizeApiTest" classname="Tests.Feature.SizeApiTest" assertions="3" time="0.159382"/>
+        <testcase name="it_can_list_all_sizes" file="/var/www/tests/Unit/SizeApiTest.php" line="44" class="Tests\Feature\SizeApiTest" classname="Tests.Feature.SizeApiTest" assertions="2" time="0.117716"/>
+        <testcase name="it_can_edit_a_size" file="/var/www/tests/Unit/SizeApiTest.php" line="59" class="Tests\Feature\SizeApiTest" classname="Tests.Feature.SizeApiTest" assertions="2" time="0.130578"/>
+        <testcase name="it_can_delete_a_size" file="/var/www/tests/Unit/SizeApiTest.php" line="79" class="Tests\Feature\SizeApiTest" classname="Tests.Feature.SizeApiTest" assertions="2" time="0.117361"/>
+        <testcase name="it_throws_error_when_group_does_not_exist" file="/var/www/tests/Unit/SizeApiTest.php" line="95" class="Tests\Feature\SizeApiTest" classname="Tests.Feature.SizeApiTest" assertions="2" time="0.106937"/>
+      </testsuite>
+      <testsuite name="Tests\Unit\SizeGroupApiTest" file="/var/www/tests/Unit/SizeGroupApiTest.php" tests="9" assertions="23" errors="0" failures="0" skipped="0" time="1.019966">
+        <testcase name="it_can_add_a_new_size_group" file="/var/www/tests/Unit/SizeGroupApiTest.php" line="28" class="Tests\Unit\SizeGroupApiTest" classname="Tests.Unit.SizeGroupApiTest" assertions="3" time="0.127014"/>
+        <testcase name="it_can_list_all_size_groups" file="/var/www/tests/Unit/SizeGroupApiTest.php" line="43" class="Tests\Unit\SizeGroupApiTest" classname="Tests.Unit.SizeGroupApiTest" assertions="2" time="0.107858"/>
+        <testcase name="it_can_edit_a_size_group" file="/var/www/tests/Unit/SizeGroupApiTest.php" line="57" class="Tests\Unit\SizeGroupApiTest" classname="Tests.Unit.SizeGroupApiTest" assertions="3" time="0.107968"/>
+        <testcase name="it_can_delete_a_size_group_and_its_relations" file="/var/www/tests/Unit/SizeGroupApiTest.php" line="80" class="Tests\Unit\SizeGroupApiTest" classname="Tests.Unit.SizeGroupApiTest" assertions="3" time="0.112263"/>
+        <testcase name="it_throws_error_when_deleting_nonexistent_group" file="/var/www/tests/Unit/SizeGroupApiTest.php" line="109" class="Tests\Unit\SizeGroupApiTest" classname="Tests.Unit.SizeGroupApiTest" assertions="2" time="0.118335"/>
+        <testcase name="it_can_append_a_size_to_group" file="/var/www/tests/Unit/SizeGroupApiTest.php" line="118" class="Tests\Unit\SizeGroupApiTest" classname="Tests.Unit.SizeGroupApiTest" assertions="3" time="0.110219"/>
+        <testcase name="it_cannot_append_a_size_with_status_zero" file="/var/www/tests/Unit/SizeGroupApiTest.php" line="144" class="Tests\Unit\SizeGroupApiTest" classname="Tests.Unit.SizeGroupApiTest" assertions="2" time="0.109423"/>
+        <testcase name="it_can_remove_a_size_from_group" file="/var/www/tests/Unit/SizeGroupApiTest.php" line="165" class="Tests\Unit\SizeGroupApiTest" classname="Tests.Unit.SizeGroupApiTest" assertions="3" time="0.113176"/>
+        <testcase name="it_throws_error_when_removing_nonexistent_relation" file="/var/www/tests/Unit/SizeGroupApiTest.php" line="196" class="Tests\Unit\SizeGroupApiTest" classname="Tests.Unit.SizeGroupApiTest" assertions="2" time="0.113710"/>
+      </testsuite>
+      <testsuite name="Tests\Unit\SizeTest" file="/var/www/tests/Unit/SizeTest.php" tests="3" assertions="3" errors="0" failures="0" skipped="0" time="0.541543">
+        <testcase name="it_can_add_a_size" file="/var/www/tests/Unit/SizeTest.php" line="15" class="Tests\Unit\SizeTest" classname="Tests.Unit.SizeTest" assertions="1" time="0.106030"/>
+        <testcase name="it_can_edit_a_size" file="/var/www/tests/Unit/SizeTest.php" line="31" class="Tests\Unit\SizeTest" classname="Tests.Unit.SizeTest" assertions="1" time="0.307668"/>
+        <testcase name="it_can_delete_a_size" file="/var/www/tests/Unit/SizeTest.php" line="46" class="Tests\Unit\SizeTest" classname="Tests.Unit.SizeTest" assertions="1" time="0.127845"/>
       </testsuite>
     </testsuite>
-    <testsuite name="Feature" tests="2" assertions="2" errors="0" failures="0" skipped="0" time="0.927889">
-      <testsuite name="Tests\Feature\ExampleTest" file="/var/www/tests/Feature/ExampleTest.php" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.815879">
-        <testcase name="test_the_application_returns_a_successful_response" file="/var/www/tests/Feature/ExampleTest.php" line="13" class="Tests\Feature\ExampleTest" classname="Tests.Feature.ExampleTest" assertions="1" time="0.815879"/>
+    <testsuite name="Feature" tests="2" assertions="2" errors="0" failures="0" skipped="0" time="0.567244">
+      <testsuite name="Tests\Feature\ExampleTest" file="/var/www/tests/Feature/ExampleTest.php" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.466331">
+        <testcase name="test_the_application_returns_a_successful_response" file="/var/www/tests/Feature/ExampleTest.php" line="13" class="Tests\Feature\ExampleTest" classname="Tests.Feature.ExampleTest" assertions="1" time="0.466331"/>
       </testsuite>
-      <testsuite name="Tests\Feature\HomepageTest" file="/var/www/tests/Feature/HomepageTest.php" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.112010">
-        <testcase name="test_homepage_returns_200" file="/var/www/tests/Feature/HomepageTest.php" line="9" class="Tests\Feature\HomepageTest" classname="Tests.Feature.HomepageTest" assertions="1" time="0.112010"/>
+      <testsuite name="Tests\Feature\HomepageTest" file="/var/www/tests/Feature/HomepageTest.php" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.100913">
+        <testcase name="test_homepage_returns_200" file="/var/www/tests/Feature/HomepageTest.php" line="9" class="Tests\Feature\HomepageTest" classname="Tests.Feature.HomepageTest" assertions="1" time="0.100913"/>
       </testsuite>
     </testsuite>
   </testsuite>
