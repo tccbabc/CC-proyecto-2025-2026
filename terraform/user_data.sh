@@ -27,7 +27,7 @@ usermod -aG docker ubuntu
 su - ubuntu <<'EOF'
 cd /home/ubuntu
 
-# ⚠️ REPLACE THIS WITH YOUR REAL REPOSITORY URL
+
 git clone https://github.com/tccbabc/CC-proyecto-2025-2026.git project
 cd project
 
