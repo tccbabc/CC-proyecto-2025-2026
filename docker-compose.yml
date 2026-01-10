@@ -5,7 +5,7 @@ services:
     image: ghcr.io/tccbabc/laravel_app:latest
     build:
       context: .
-      dockerfile: /docker/php/Dockerfile
+      dockerfile: docker/php/Dockerfile
     container_name: laravel_app
     working_dir: /var/www
     volumes:
