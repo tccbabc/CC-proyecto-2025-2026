@@ -20,6 +20,7 @@ RUN pecl install xdebug && docker-php-ext-enable xdebug
 
 WORKDIR /var/www
 COPY ./src /var/www
+RUN composer install --no-dev --optimize-autoloader
 RUN usermod -u 1000 www-data || true
 EXPOSE 9000
 
