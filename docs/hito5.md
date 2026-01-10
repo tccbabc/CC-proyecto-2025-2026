@@ -7,378 +7,254 @@
 &nbsp;
 
 
-### 1. El IaaS elegido - railway
+### 1. El IaaS elegido - AWS-EC2
 
 &nbsp;
 
- - **servidor PHP-FPM:** Microservicio que ejecuta toda la lógica de negocio de la aplicación. El PHP-FPM, que significa PHP FastCGI Process Manager, es una implementación avanzada de PHP que usa el protocolo FastCGI para procesar solicitudes PHP de forma rápida y eficiente. Como hoy en dia, el protocolo de FastCGI es lo mas usado, y el FPM es el administrador de procesos que hace que PHP sea más rápido y más estable con FastCGI, pues en este caso, usamos un servidor de PHP-FPM.
+AWS EC2 (Elastic Compute Cloud) es un servicio de IaaS ofrecido por Amazon Web Services. Permite crear y usar máquinas virtuales en la nube, que funcionan como servidores remotos accesibles por Internet.En este proyecto, AWS EC2 se utilizó como la infraestructura principal donde se ejecuta la aplicación PHP y los servicios necesarios para su funcionamiento. Se utilizó la versión gratuita de AWS, conocida como Free Tier, que ofrece recursos limitados pero suficientes para un proyecto académico:
 
- - **Base de dato MySQL:** El contenedor Base de dato MySQL desempeña un papel fundamental como sistema principal de persistencia de datos.Su función es almacenar, gestionar y garantizar la integridad de toda la información estructurada utilizada por la aplicación construida en Laravel.
+ - **Tipo de instancia:** t2.micro / t3.micro → 1 vCPU y 1 GB de RAM
 
- - **Nginx:** Se encarga exclusivamente de servir peticiones HTTP y de comunicarse con PHP-FPM, permitiendo que Nginx actúe como reverse proxy, gestione rutas y entregue contenido estático de forma eficiente. Aunque en este proyecto la mayoría de peticiones simplemente se redirigen directamente a PHP-FPM sin intervención adicional, para por un lado mantener una arquitectura alineada con entornos productivos reales, por otro lado facilitar la escalabilidad futura, introduzco el contenedor de Nginx.
+ - **Sistema operativ:** Ubuntu Linux
 
- - **Sistema de caché y cola Redis:** Servicio NoSQL en memoria usado para caché, rate limiting, colas de trabajos y sesiones de Laravel. Como en el caso de Nginx, aunque en este proyecto, no usamos mucho la funcionalidad de Redis, aun introduczo el contenedor de Redis para uso futuro.
+ - **Almacenamiento:** hasta 10 GB de disco EBS.
 
- - **herramienta de administración phpMyAdmin:** Herramienta de administración basada en web para MySQL,que permite la administración visual de la base de datos.
+ - **Red:** Dirección IP pública, Configuración manual de puertos (SSH, HTTP, etc.)
 
- - **Logs**: **ELK**, que consiste en tres contenedores como **elasticsearch**, **logstash** y **kibana**. 
+ - **Acceso:** Conexión por SSH mediante clave privada 
 
-            **Elasticsearch**: Motor de búsqueda y almacenamiento de logs estructurados.La aplicación y Logstash envían logs aquí para análisis avanzado.
-            **Logstash**: Encargado de recolectar y transformar logs generados por Laravel (ubicados en storage/logs) para enviarlos a Elasticsearch.
-            **Kibana**: Interfaz gráfica que permite consultar, analizar y visualizar los datos almacenados en Elasticsearch.
-
+ - **Coste:** Gratuito dentro de los límites del Free Tier
 
 &nbsp;
 &nbsp;
+
+![EC2](/docs/imgs/EC2.png)
+
 &nbsp;
 &nbsp;
 
+El uso de una solución IaaS como AWS EC2 frente a una PaaS permite tener un mayor control sobre la infraestructura y demuestra un conocimiento más profundo de sistemas, redes y despliegue de aplicaciones. 
 
-### 2. Las herramientas usadas para desplegar la aplicación en railway
+Al principio se utilizó un servicio PaaS llamado Railway. Durante el proceso de despliegue se comprobó que, para un despliegue individual, Railway resulta más sencillo y más intuitivo que AWS EC2, ya que requiere menos configuración y permite poner la aplicación en funcionamiento de forma rápida.
 
-En este caso, como de momento el proyecto tiene funcionalidad sencilla, pues todos los contenedores son creados desde imagen basico.
+Sin embargo, cuando se plantea la automatización del despliegue, la situación cambia. Con la ayuda de herramientas como Terraform, el uso de una solución IaaS como EC2 resulta más simple y más clara a largo plazo, ya que permite definir toda la infraestructura como código y repetir el proceso de forma automática y controlada.
 
-
- - **servidor PHP-FPM:** Imagen basico de **php:8.3-fpm**, proporciona una instalación oficial de PHP 8.3 configurada con FastCGI Process Manager (FPM). Está optimizada para ejecutar aplicaciones web de alto rendimiento, especialmente aquellas basadas en frameworks como Laravel. Tiene las siguientes características: **Basada en Debian, compatible con extensiones PHP adicionales**, **Incluye el motor FPM, ideal para integrarse con Nginx**.
-
-
- - **Base de dato MySQL:** Imagen basico de **mysql:8.0**, es la versión oficial del motor de bases de datos MySQL. Incluye todas las funcionalidades modernas de SQL necesarias para la aplicación. Tiene las siguientes características: **Alto rendimiento en consultas relacionales**,**Compatible con Eloquent ORM de Laravel**,**Permite la creación automática de bases de datos y usuarios mediante variables de entorno**.
-
-
-- **Nginx:** Imagen basico de **nginx:stable**, es la distribución estable del servidor web Nginx. Se utiliza para servir peticiones HTTP y para actuar como reverse proxy hacia PHP-FPM. 
-
-
-- **Sistema de caché y cola Redis:** Imagen basico de **redis:7**, contiene la versión oficial de Redis, un almacén en memoria extremadamente rápido utilizado para cache y colas. El proyecto utiliza Redis para mejorar el rendimiento general de la aplicación, gestionar caches y soportar tareas en segundo plano mediante el queue worker de Laravel. Aunque en este proyecto todavia no introduzco mucho el concepto de colas.
-
-
-- **herramienta de administración phpMyAdmin:** Imagen basico de **phpmyadmin/phpmyadmin**, ofrece una herramienta gráfica para administrar MySQL desde el navegador.
-
-
-- **Elasticsearch:** Imagen basico de **docker.elastic.co/elasticsearch/elasticsearch:8.12.0**, un motor de búsqueda y análisis distribuido usado para almacenar datos estructurados y logs. Tiene las siguientes características: **Transformación y búsqueda de datos a gran escala**, **Compatibilidad con Logstash y Kibana**, **Modo “single-node” apto para entornos de desarrollo**. 
-
-
-- **Logstash:** Imagen de **docker.elastic.co/logstash/logstash:8.12.0**, es el componente encargado de recibir, procesar y enviar logs hacia Elasticsearch.Recoge y transforma los logs del directorio storage/logs de Laravel para analizarlos dentro de Elasticsearch.
-
-
-- **Kibana:** Imagen de **docker.elastic.co/kibana/kibana:8.12.0**, implementa la interfaz web para visualizar los datos almacenados en Elasticsearch. Permite visualizar los logs procesados por Logstash, facilitando el análisis del comportamiento de la aplicación y la detección de errores.
+Por este motivo, aunque Railway es más cómodo para despliegues puntuales, la opción final del proyecto fue AWS EC2, principalmente por la facilidad para implementar automatización y por el mayor control que ofrece sobre la infraestructura.
 
 
 &nbsp;
 &nbsp;
+
+
+### 2. Las herramientas usadas para desplegar la aplicación en En IaaS
+
+&nbsp;
+
+
+ - **sAWS EC2:** La aplicación se desplegó sobre una instancia de AWS EC2, que proporciona una infraestructura de tipo IaaS. EC2 se utilizó como servidor principal, permitiendo un control total sobre el sistema operativo, la red y los servicios instalados.
+
+
+- **Terraform para la automatización (clave del proyecto):** Para la automatización del despliegue de la infraestructura se utilizó Terraform. Gracias a Terraform, fue posible definir la infraestructura de EC2 como código, automatizando la creación y configuración de recursos en AWS, el que consiste en 4 archivos:
+
+  - **main.tf:** Este es el archivo más importante del proyecto. Aquí es donde se define la infraestructura principal, por ejemplo: La instancia EC2, El tipo de instancia, El sistema operativo, La red básica, Los recursos que realmente se van a crear, etc. 
+
+  - **variables.tf:** Este archivo se usa para definir variables, en lugar de escribir todos los valores directamente en el código.
+
+  - **outputs.tf:** El archivo outputs.tf se utiliza para mostrar información importante al final del despliegue, en mi caso la direccion de la IP.
+
+  - **user-data.sh**: Este archivo es clave para la automatización del despliegue, el que es un script que se ejecuta automáticamente la primera vez que se inicia la instancia EC2. En este script se incluyen tareas como: Actualizar el sistema, Instalar Docker y Docker Compose, Descargar el código del proyecto, Arrancar los contenedores Docker, etc. 
+
+
+&nbsp;
+&nbsp;
+
+![terraform](/docs/imgs/terraform.png)
+
+&nbsp;
+&nbsp;
+
+
+ - **Acceso por SSH:** El acceso al servidor EC2 se realizó mediante SSH, usando una clave privada. Esto permitió conectarse de forma segura al servidor para instalar dependencias, configurar el entorno y desplegar la aplicación manualmente. Sobre todo en este hito, la configuracion automatica en la nube es muy diferente que en la maquina local, pues despues de crear la instancia del servidor, habia muchos erroes durante el proceso de desplegar y debe acceder al mismo servidor a leer el log para ver donde esta el problema.
+
+
+- **Sistema operativo Linux (Ubuntu):** La instancia EC2 utiliza Ubuntu Linux como sistema operativo. Este entorno facilita la instalación de herramientas comunes para desarrollo web y es muy habitual en servidores en producción.
+
+
+- **Contenedor-docker:** Para facilitar el despliegue y asegurar que la aplicación se ejecute siempre en el mismo entorno, se utilizó Docker. Docker permite empaquetar la aplicación junto con todas sus dependencias en contenedores, evitando problemas de compatibilidad entre entornos.
+
+
+- **Git para el despliegue del código:** El código de la aplicación se gestionó mediante Git, permitiendo clonar el repositorio directamente en el servidor EC2. Esto facilitó el control de versiones y la actualización del código durante el despliegue.
+
+
+
 &nbsp;
 &nbsp;
 
 
 ### 3. La configuración para el despliegue automático de la aplicación
 
-En mi proyecto, aunque existen muchas clases de servicio con diferentes funcionalidades, desde el punto de vista de la lógica de negocio todas ellas solo pueden formar un microservicio relativamente completo. Por lo tanto, en este proyecto solo existe un Dockerfile correspondiente a un único microservicio. 
+&nbsp;
+
+La aplicación se desplegó de forma automática sobre una infraestructura IaaS utilizando AWS EC2, con el repositorio de código alojado en GitHub. En general, se consisten en los siguientes partes:
+
+- **3.1 Definición de la infraestructura con Terraform:** La infraestructura se definió utilizando Terraform, siguiendo el enfoque de Infraestructura como Código (IaC). Mediante varios archivos de configuración, se describieron los recursos necesarios, principalmente una instancia EC2. Cuando se ejecuta la instruccion **terraform apply   -var="key_name=cc-iaas-key"**, Terraform se encarga automáticamente de Crear la instancia EC2 y Asociar un script de inicialización (user-data.sh).
+
+- **3.2 Uso de user-data para la automatización inicial:** Durante la creación de la instancia EC2, se utiliza un script user-data.sh, que se ejecuta automáticamente en el primer arranque del servidor. Este script es definido por nosotros, el que he contado en el parte arriba.
+
+- **3.3 Despliegue de la aplicación con Docker:** La aplicación se ejecuta dentro de contenedores creados con Docker.Docker permite que todo el entorno de la aplicación esté definido previamente, incluyendo dependencias y configuración.De esta forma, una vez que el repositorio se clona desde GitHub y los contenedores se inician, la aplicación queda funcionando automáticamente.
 
 
 &nbsp;
 &nbsp;
-&nbsp;
-&nbsp;
 
-
-![dockerFile](/docs/imgs/dockerfile.png)
-
+![docker](/docs/imgs/docker.png)
 
 &nbsp;
 &nbsp;
-&nbsp;
-&nbsp;
 
 
-  - **Imagen base:** "FROM php:8.3-fpm", define la imagen base sobre la cual se construirá el contenedor.
-
-
-  - **Instalación de dependencias del sistema y extensiones de PHP:** "RUN apt-get update && apt-get install -y \", en este trozo de codigo, hace la instalación de paquetes del sistema como **git, curl, wget, unzip etc.**, y tambien la instalación de extensiones internas de PHP como **pdo_mysql intl mbstring zip exif pcntl bcmath etc.**
-
-
-  - **Instalación de Composer y extensiones de terceros:** "COPY --from=composer:2.7 /usr/bin/composer /usr/bin/composer", Copia el ejecutable de Composer desde la imagen oficial composer:2.7, evitando instalarlo manualmente.
-
-
-  - **Directorio de trabajo y copia del código fuente:** "WORKDIR /var/www", "COPY ./src /var/www", establece el directorio de trabajo del contenedor, copia el código fuente de la aplicación dentro del contenedor.
-
-
-
-  - **Configuración de usuario y permisos:** "RUN usermod -u 1000 www-data || true", ajusta el UID del usuario www-data para coincidir con el del sistema anfitrión y evitar conflictos de permisos; "RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache \ && chmod -R 775 /var/www/storage /var/www/bootstrap/cache",asigna la propiedad de los directorios que requieren escritura por parte de PHP-FPM, establece permisos adecuados para que la aplicación pueda generar logs, caché y otros archivos temporales.
-
-
-  - **Exposición del puerto del servicio:** "EXPOSE 9000", indica que PHP-FPM escuchará en el puerto 9000, el cual es utilizado por Nginx u otros servicios para comunicarse mediante FastCGI.
-
+Esta configuración demuestra cómo una solución IaaS permite un alto nivel de automatización cuando se combina con herramientas adecuadas. El uso conjunto de Terraform, GitHub y Docker facilita un despliegue controlado y repetible, aportando mayor valor técnico al proyecto frente a soluciones más cerradas como PaaS.
 
 
 &nbsp;
 &nbsp;
-&nbsp;
-&nbsp;
-
 
 
 ### 4. Las herramientas de observabilidad implementadas
 
-GitHub Packages es un servicio de GitHub que permite almacenar, gestionar y distribuir paquetes de software directamente desde un repositorio. Es un registro de paquetes (package registry) integrado con GitHub. Para almacenar el imagen en mi repositorio, sigo los siguientes pasos:
+- **AWS CloudWatch:** AWS proporciona de forma nativa AWS CloudWatch, que se utilizó para supervisar el estado de la instancia EC2. Con CloudWatch se pueden observar métricas como: **Uso de CPU**, **Consumo de memoria**, **Estado de la instancia**, **Tráfico de red**, etc. Estas métricas permiten comprobar si el servidor está funcionando correctamente o si existe sobrecarga de recursos, algo especialmente importante al usar instancias pequeñas del Free Tier.
 
- - **Autenticación en GHCR:** "echo $CR_PAT | docker login ghcr.io -u tccbabc --password-stdin", despues de establecer el clave para la gestion con paquete, iniciar al docker con este comando. 
+- **Ventajas de la monitorización básica con AWS CloudWatch:** 
+
+En primer lugar, CloudWatch está integrado directamente con AWS, por lo que no es necesario instalar ni configurar herramientas adicionales en la instancia EC2. Desde el primer momento se dispone de métricas básicas sin esfuerzo extra. 
+
+Otra ventaja clave es que permite tener visibilidad en tiempo real sobre el estado del servidor. Métricas como el uso de CPU, el tráfico de red o el estado de la instancia ayudan a detectar rápidamente si el servidor está funcionando con normalidad o si existe algún problema de carga. 
+
+Además, CloudWatch resulta especialmente útil cuando se utilizan instancias pequeñas del Free Tier, ya que permite comprobar si los recursos son suficientes o si el servidor está llegando a sus límites.
+
+&nbsp;
+&nbsp;
 
 
- - **Construcción de la imagen:** "docker build -t ghcr.io/tccbabc/laravel_app:latest -f ./docker/php/Dockerfile .", con este comando crear una imagen de la aplicacion desarrollado.
+![AWS CloudWatch](/docs/imgs/AWSCloudWatch.png)
+
+&nbsp;
+&nbsp;
+
+- **ELK:** En este caso, como estoy usando una version gratis de AWS, no me da suficiente espacio para desplegar el sistema de log que habia desplegado en el hito anterior. Pues considerando de momento lo mas importante es asegurar que la aplicacion se pueda ser desplegado con exito en la nube, al final deja de usa el ELK.
 
 
 &nbsp;
 &nbsp;
-&nbsp;
-&nbsp;
 
 
-![constuccionImagen](/docs/imgs/crearImagen.png)
-
+![falloELK](/docs/imgs/falloELK.png)
 
 &nbsp;
 &nbsp;
-&nbsp;
-&nbsp;
-
-
-- **Publicación en el registro:** "docker push ghcr.io/tccbabc/laravel_app:latest", con este comando sube la imagen al git.
-
-
-&nbsp;
-&nbsp;
-&nbsp;
-&nbsp;
-
-![pushImagen](/docs/imgs/pushImagen.png)
-
-
-&nbsp;
-&nbsp;
-&nbsp;
-&nbsp;
-
-
-- **Uso de la imagen remota en el clúster:** Actualiza el fichero de **docker-compose.yaml**, para utilizar directamente la imagen publicada.
-
-**Atencion** Como en este proyecto, todavia estoy desarrollando la aplicacion, la modificare frecuntemente, asique de momento no despliego la funcionalidad de actualización automática de la imagen en GitAction.
 
 
 ### 5. Funcionamiento correcto del despliegue
 
-Es un archivo de configuración usado por Docker Compose que permite definir, configurar y ejecutar múltiples contenedores como si fueran un solo sistema o aplicación.
+
+Para verificar que la aplicación desplegada en el servidor funciona correctamente, se utilizó **Postman** como endpoint para realizar pruebas sobre el sistema. La aplicación se encuentra accesible a través de la IP pública **13.62.20.183** y, debido a que se utiliza Nginx como proxy, el servicio está expuesto en el puerto **8080**. Para las pruebas se utilizó la API de **grupos de tallas**, realizando varias llamadas a dicho endpoint con el objetivo de comprobar que la API responde correctamente y que el sistema funciona de manera estable. Aqui estan las APIs usadas:
+
+- **GET http://13.62.20.183:8080/api/size-groups/**
+
+- **POST http://13.62.20.183:8080/api/size-groups/**
+
+- **PUT http://13.62.20.183:8080/api/size-groups/STD**
+
+
+Esta prueba se centra principalmente en comprobar si la aplicación puede leer y escribir correctamente en la base de datos en la nube. 
+
+El proceso es bastante sencillo: primero se consultan los datos de los grupos de tallas, que inicialmente están vacíos. A continuación, se añade un grupo de tallas, se vuelve a consultar la información, después se modifica dicho grupo y, finalmente, se realiza una última consulta para verificar los cambios.
+
+Como se muestra en las imágenes siguientes, los resultados de la prueba indican que el despliegue en la nube se ha realizado correctamente y que la aplicación funciona como se esperaba.
+
 
 &nbsp;
 &nbsp;
-&nbsp;
-&nbsp;
 
-![dockercompose1](/docs/imgs/docker_compose1.png)
-![dockercompose2](/docs/imgs/docker_compose2.png)
-![dockercompose3](/docs/imgs/docker_compose3.png)
-
+![nubeprueba1](/docs/imgs/nubeprueba1.png)
 
 &nbsp;
+
+![nubeprueba2](/docs/imgs/nubeprueba2.png)
+
+&nbsp;
+
+![nubeprueba3](/docs/imgs/nubeprueba3.png)
+
+&nbsp;
+
+![nubeprueba4](/docs/imgs/nubeprueba4.png)
+
+
 &nbsp;
 &nbsp;
-&nbsp;
-
-
-5.1 **Microservicio PHP-FPM:** Este servicio contiene la lógica principal de la aplicación implementada en Laravel.
- 
-    - image: se utiliza la imagen remota, ghcr.io/tccbabc/laravel_app:latest, construida previamente y publicada en GitHub Packages.
-
-    - build: permite reconstruir la imagen localmente durante el desarrollo.
-
-    - working_dir: define el directorio de trabajo /var/www.
-
-    - volumes: sincroniza el código fuente local con el contenedor.
-
-    - environment: variables que permiten conectar con MySQL y Redis.
-
-    - depends_on: garantiza que MySQL y Redis estén disponibles antes de iniciar Laravel.
-
-
-
-5.2 **Nginx:** Este servicio implementa el servidor HTTP que recibe peticiones externas y las dirige al servicio app.
-
-    - image: nginx:stable.
-
-    - ports: expone el puerto 8080:80 para evitar conflictos con otros servidores locales.
-
-    - volumes: monta el código fuente y el archivo de configuración Nginx.
-
-    - depends_on: garantiza que Laravel esté disponible antes de iniciar Nginx.
-
-
-
-5.3 **MySQL 8.0:** Servicio encargado de la persistencia relacional de datos.
-
-    - image: mysql:8.0, ampliamente soportada por Laravel.
-
-    - environment: define la base de datos inicial, usuario y credenciales.
-
-    - ports: expone el puerto 3306 para acceder al motor desde el exterior.
-
-    - volumes: db_data garantiza persistencia aunque el contenedor se elimine.
-
-
-
-5.4 **Redis:** Sistema de almacenamiento en memoria utilizado para cache y colas.
-
-    - image: redis:7
-
-    - ports: expone el puerto 6390:6379 para evitar conflictos con Redis instalados en la máquina local.
-
-
-
-5.5 **Phpmyadmin:** Panel web para administrar la base de datos MySQL.
-
-    - image: phpmyadmin/phpmyadmin
-
-    - environment: apunta al contenedor db.
-
-    - ports: expuesto en 8081:80.
-
-    - depends_on: espera a MySQL para iniciar.
-
-
-
-5.6 **Elasticsearch:** Componente central del stack ELK, encargado de almacenar y indexar logs.
-
-    - image: docker.elastic.co/elasticsearch/elasticsearch:8.12.0
-
-    - environment:
-
-        discovery.type=single-node → modo desarrollo.
-
-        xpack.security.enabled=false → evita autenticación.
-
-        ES_JAVA_OPTS → limita el uso de memoria a 512 MB.
-
-    - ports: expuesto en 9200.
-
-    - volumes: elastic_data para persistir índices.
-
-
-
-5.7 **Logstash:** Procesa los logs generados por la aplicación y los envía a Elasticsearch.
-
-    - image: docker.elastic.co/logstash/logstash:8.12.0
-
-    - depends_on: espera a Elasticsearch.
-
-    - ports: expone 5044, entrada de logs tipo Beats.
-
-    - volumes:
-
-         pipeline personalizado
-
-         acceso a storage/logs de Laravel
-
-    - environment: limita memoria a 256 MB.
-
-
-
-5.8 **Kibana:** Interfaz gráfica para visualizar los datos almacenados en Elasticsearch.
-
-    - image: docker.elastic.co/kibana/kibana:8.12.0
-
-    - depends_on: espera a Elasticsearch.
-
-    - ports: expone 5601:5601.
-
-    - environment: define el host de Elasticsearch.
-
-
-5.9 **Definición de volúmenes persistentes:** Estos volúmenes garantizan que los datos críticos del sistema (base de datos e índices de Elasticsearch) sobrevivan a reconstrucciones o borrados de contenedores.
-
-
-El archivo docker-compose.yaml implementa un clúster completo y modular, capaz de ejecutar la aplicación en un entorno idéntico en cualquier máquina. Su estructura clara y su integración con GHCR y ELK lo convierten en una solución profesional y preparada para un entorno cloud-native.
-
 
 
 ### 6. Pruebas de las prestaciones de la aplicación. 
-En este paso, va a completar todas las funciones de la aplicacion desplegada, en concreto, son:
 
-- **Gestion de dato de color**
-- **Gestion de dato de grupo de color**
-- **Gestion de dato de compra de material**
+&nbsp;
 
+Para evaluar las prestaciones de la aplicación desplegada en la nube, se realizaron varias pruebas orientadas a comprobar su comportamiento bajo carga y su capacidad de respuesta ante múltiples peticiones simultáneas. Como en el parte anterior he probado con unos APIs de la aplicacion, en este caso voy a usar una de ellos, pero con diferentes cargas, es decir, hace las pruebas de carga con múltiples peticiones concurrentes. En concreto, se ejecutaron varias peticiones concurrentes al endpoint de grupos de tallas, comprobando que:
 
-Las funciones que tienen relacion con color son muy similares con las de tamano, asi que en este parte no voy a contar mas. 
+- **La aplicación responde sin errores**
 
+- **El servidor mantiene la estabilidad**
 
-6.1 **Tabla de Gestion de dato de compra de material**:
+- **No se producen caídas del servicio**
 
-    CREATE TABLE `material_design_requirements` (
-
-     `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-     `colorCode` VARCHAR(255) NOT NULL,
-     `colorGroupCode` VARCHAR(255) NOT NULL,
-     `sizeCode` VARCHAR(255) NOT NULL,
-     `sizeGroupCode` VARCHAR(255) NOT NULL,
-     `status` TINYINT(1) NOT NULL DEFAULT 1,
-     `providerCode` VARCHAR(255) DEFAULT NULL,
-     `providerName` VARCHAR(255) DEFAULT NULL,
-     `created_at` TIMESTAMP NULL DEFAULT NULL,
-     `updated_at` TIMESTAMP NULL DEFAULT NULL,
-
-    PRIMARY KEY (`id`),
-    CONSTRAINT `mdr_colorCode_fk`
-     FOREIGN KEY (`colorCode`)
-     REFERENCES `colors`(`colorCode`)
-     ON DELETE NO ACTION,  
-
-    CONSTRAINT `mdr_colorGroupCode_fk`
-     FOREIGN KEY (`colorGroupCode`)
-     REFERENCES `color_groups`(`colorGroupCode`)
-     ON DELETE NO ACTION,
-
-    CONSTRAINT `mdr_sizeCode_fk`
-     FOREIGN KEY (`sizeCode`)
-     REFERENCES `sizes`(`sizeCode`)
-     ON DELETE NO ACTION,
-
-    CONSTRAINT `mdr_sizeGroupCode_fk`
-     FOREIGN KEY (`sizeGroupCode`)
-     REFERENCES `size_groups`(`sizeGroupCode`)
-     ON DELETE NO ACTION
-
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+Para evaluar las prestaciones de la aplicación desplegada en la nube, se realizó una prueba de carga sobre el endpoint REST: **GET /api/size-groups**
 
 
-6.2 **Restriciones de las operaciones:** 
-   
-   - anadir tamano: el tamano debe tener relacion con el grupo de tamano
+La prueba se ejecutó desde un cliente externo (máquina local con Windows) utilizando PowerShell, sin necesidad de instalar herramientas adicionales, simulando múltiples usuarios concurrentes accediendo a la aplicación.
 
-   - editar tamano: el tamano debe tener relacion con el grupo de tamano
+El procedimiento consistió en lanzar 20 procesos concurrentes (jobs), y cada uno de ellos realizó 50 peticiones HTTP GET consecutivas al endpoint, alcanzando un total de: **Número total de peticiones: 1000**, **Nivel de concurrencia: 20**.
+ 
 
-   - anadir grupo de tamano: el grupo de tamano debe tener relacion con el grupo de tamano
+   $jobs = 1..20 | ForEach-Object {
+    Start-Job {
+        1..50 | ForEach-Object {
+            Invoke-WebRequest "http://13.62.20.183:8080/api/size-groups" -UseBasicParsing
+        }
+    }
+   }  
+   $jobs | Wait-Job
 
-   - editar grupo de tamano: el grupo de tamano debe tener relacion con el grupo de tamano
 
-   - en caso de color, tiene la misma restriccion como tamano.
-
-
-6.3 **Prueba y ELK:**
+Posteriormente, se repitió el experimento incrementando el nivel de concurrencia y el número total de peticiones (hasta 5000 solicitudes) con el objetivo de observar el comportamiento del sistema bajo una mayor carga.
 
 
-En los pasos anteriores, ya he configuracion las funcionalidades nuevas de Log en un conjunto de contenedores que se llama **ELK**. Ahora no solamente podemos leer los logs en el archivo api.log, sino tambien en la pagina especial de kibana, en este caso es **http://localhost:5601/**. Alli podemos obtener las informaciones de las pruebas. 
+   $jobs = 1..50 | ForEach-Object {
+    Start-Job {
+        1..100 | ForEach-Object {
+            Invoke-WebRequest "http://13.62.20.183:8080/api/size-groups" -UseBasicParsing
+        }
+    }
+   }  
+   $jobs | Wait-Job
+
+
+A partir de las métricas observadas en Amazon CloudWatch, se obtuvieron los siguientes resultados:
+
+- **Utilización de CPU:** La utilización máxima de CPU alcanzó aproximadamente el 20% durante el pico de carga, Tras finalizar la prueba, el uso de CPU volvió rápidamente a valores cercanos a cero.
+
+- **Tráfico de red:** El aumento del tráfico de red confirma que las peticiones HTTP fueron procesadas correctamente y que el servidor respondió a los clientes sin interrupciones ni pérdidas de paquetes.
+
+- **Paquetes de red:** El elevado número de paquetes procesados demuestra que la aplicación mantuvo una comunicación estable con los clientes durante la prueba, sin errores de red apreciables.
+
+- **CPU Credits:** El CPU credit usage muestra picos durante la prueba, El CPU credit usage muestra picos durante la prueba.
 
 
 &nbsp;
 &nbsp;
-&nbsp;
-&nbsp;
 
 
-![size-ELK](/docs/imgs/size-ELK.png)
-![color-ELK](/docs/imgs/color-ELK.png)
-![material-ELK](/docs/imgs/material-ELK.png)
+![EC2-P](/docs/imgs/EC2-P.png)
 
-
-&nbsp;
-&nbsp;
 &nbsp;
 &nbsp;
 
