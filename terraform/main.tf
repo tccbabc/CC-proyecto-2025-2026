@@ -11,6 +11,26 @@ provider "aws" {
   region = var.aws_region
 }
 
+
+data "aws_ami" "ubuntu" {
+  most_recent = true
+
+  owners = ["099720109477"] # Canonical (Ubuntu 官方)
+
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+}
+
+# -----------------------------
+# Security Group
+# -----------------------------
 resource "aws_security_group" "app_sg" {
   name        = "cc-iaas-sg"
   description = "Security group for CC IaaS project"
@@ -39,8 +59,11 @@ resource "aws_security_group" "app_sg" {
   }
 }
 
+# -----------------------------
+# EC2 Instance
+# -----------------------------
 resource "aws_instance" "app" {
-  ami                    = "ami-0b2c2a754d5b4da22"
+  ami                    = data.aws_ami.ubuntu.id
   instance_type          = "t3.micro"
   key_name               = var.key_name
   vpc_security_group_ids = [aws_security_group.app_sg.id]
