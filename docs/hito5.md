@@ -177,7 +177,7 @@ Además, CloudWatch resulta especialmente útil cuando se utilizan instancias pe
 ### 5. Funcionamiento correcto del despliegue
 
 
-Para verificar que la aplicación desplegada en el servidor funciona correctamente, se utilizó **Postman** como endpoint para realizar pruebas sobre el sistema. La aplicación se encuentra accesible a través de la IP pública **13.62.20.183** y, debido a que se utiliza Nginx como proxy, el servicio está expuesto en el puerto **8080**. Para las pruebas se utilizó la API de **grupos de tallas**, realizando varias llamadas a dicho endpoint con el objetivo de comprobar que la API responde correctamente y que el sistema funciona de manera estable. Aqui estan las APIs usadas:
+Para verificar que la aplicación desplegada en el servidor funciona correctamente, se utilizó **Postman** como endpoint para realizar pruebas sobre el sistema. La aplicación se encuentra accesible a través de la IP pública **51.20.190.104** y, debido a que se utiliza Nginx como proxy, el servicio está expuesto en el puerto **8080**. Para las pruebas se utilizó la API de **grupos de tallas**, realizando varias llamadas a dicho endpoint con el objetivo de comprobar que la API responde correctamente y que el sistema funciona de manera estable. Aqui estan las APIs usadas:
 
 - **GET http://51.20.190.104:8080/api/size-groups/**
 
