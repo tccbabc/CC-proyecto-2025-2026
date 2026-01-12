@@ -119,6 +119,7 @@ Esta configuración demuestra cómo una solución IaaS permite un alto nivel de 
 &nbsp;
 &nbsp;
 
+- **3.4 Despliegue automatica en servidor:** En este caso, he creado otro archivo deploy.yml para que cada push va a desplegar automaticamente al servidor en EC2.
 
 ### 4. Las herramientas de observabilidad implementadas
 
