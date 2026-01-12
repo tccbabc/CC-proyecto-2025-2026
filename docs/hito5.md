@@ -127,6 +127,19 @@ Esta configuración demuestra cómo una solución IaaS permite un alto nivel de 
 
 - **3.4 Despliegue automatica en servidor:** En este caso, he creado otro archivo deploy.yml para que cada push va a desplegar automaticamente al servidor en EC2.
 
+&nbsp;
+&nbsp;
+
+
+![deploy](/docs/imgs/deploy.PNG)
+
+&nbsp;
+
+![deploy](/docs/imgs/deployonline.PNG)
+
+&nbsp;
+&nbsp;
+
 ### 4. Las herramientas de observabilidad implementadas
 
 - **AWS CloudWatch:** AWS proporciona de forma nativa AWS CloudWatch, que se utilizó para supervisar el estado de la instancia EC2. Con CloudWatch se pueden observar métricas como: **Uso de CPU**, **Consumo de memoria**, **Estado de la instancia**, **Tráfico de red**, etc. Estas métricas permiten comprobar si el servidor está funcionando correctamente o si existe sobrecarga de recursos, algo especialmente importante al usar instancias pequeñas del Free Tier.
