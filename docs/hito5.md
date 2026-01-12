@@ -6,6 +6,12 @@
 &nbsp;
 &nbsp;
 
+### Nota!! ###
+
+&nbsp;
+
+Como cada vez cerrar la instancia, la IP publica se convierte a otro nuevo, aqui se muestra la ultima IP: 51.20.190.104
+
 
 ### 1. El IaaS elegido - AWS-EC2
 
@@ -160,11 +166,11 @@ Además, CloudWatch resulta especialmente útil cuando se utilizan instancias pe
 
 Para verificar que la aplicación desplegada en el servidor funciona correctamente, se utilizó **Postman** como endpoint para realizar pruebas sobre el sistema. La aplicación se encuentra accesible a través de la IP pública **13.62.20.183** y, debido a que se utiliza Nginx como proxy, el servicio está expuesto en el puerto **8080**. Para las pruebas se utilizó la API de **grupos de tallas**, realizando varias llamadas a dicho endpoint con el objetivo de comprobar que la API responde correctamente y que el sistema funciona de manera estable. Aqui estan las APIs usadas:
 
-- **GET http://13.62.20.183:8080/api/size-groups/**
+- **GET http://51.20.190.104:8080/api/size-groups/**
 
-- **POST http://13.62.20.183:8080/api/size-groups/**
+- **POST http://51.20.190.104:8080/api/size-groups/**
 
-- **PUT http://13.62.20.183:8080/api/size-groups/STD**
+- **PUT http://51.20.190.104:8080/api/size-groups/STD**
 
 
 Esta prueba se centra principalmente en comprobar si la aplicación puede leer y escribir correctamente en la base de datos en la nube. 
@@ -219,7 +225,7 @@ El procedimiento consistió en lanzar 20 procesos concurrentes (jobs), y cada un
    $jobs = 1..20 | ForEach-Object {
     Start-Job {
         1..50 | ForEach-Object {
-            Invoke-WebRequest "http://13.62.20.183:8080/api/size-groups" -UseBasicParsing
+            Invoke-WebRequest "http://51.20.190.104:8080/api/size-groups" -UseBasicParsing
         }
     }
    }  
@@ -232,7 +238,7 @@ Posteriormente, se repitió el experimento incrementando el nivel de concurrenci
    $jobs = 1..50 | ForEach-Object {
     Start-Job {
         1..100 | ForEach-Object {
-            Invoke-WebRequest "http://13.62.20.183:8080/api/size-groups" -UseBasicParsing
+            Invoke-WebRequest "http://51.20.190.104:8080/api/size-groups" -UseBasicParsing
         }
     }
    }  
